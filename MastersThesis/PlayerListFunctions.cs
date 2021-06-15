@@ -21,5 +21,17 @@ namespace MastersThesis
             }
             return null;
         }
+
+        public static List<string> getNewTrait()
+        {
+            Random rd = new Random(); //Initialise random number gen
+            List<string> new_trait = new List<string>();
+            string[] traits = { "Aggressive", "Deceitful", "Forgiving", "Trustworthy" }; //Predefined traits
+            for (int i = 0; i < rd.Next(0, 2); i++) //Add a number of traits from list
+            {
+                new_trait.Add(traits[rd.Next(0, traits.Length)]);
+            }
+            return new_trait; //Return list
+        }
     }
 }

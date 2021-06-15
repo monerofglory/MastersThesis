@@ -22,23 +22,26 @@ namespace MastersThesis
             {
                 foreach (Player p in players)
                 {
-                    Random rd = new Random();
-                    Player target = PlayerListFunctions.getTarget(p.playerID, players);
-                    int card = rd.Next(0, 9);
-                    int guess = rd.Next(0, 9);
-                    Console.WriteLine(p.playerID + " targets " + target.playerID);
-                    Console.WriteLine(p.playerID + " says " + card + ", " + target.playerID + " guesses " + guess);
-                    if (guess == card)
+                    if (p.health > 0)
                     {
-                        p.health++;
-                        target.health++;
+                        Random rd = new Random();
+                        Player target = PlayerListFunctions.getTarget(p.playerID, players);
+                        int card = rd.Next(0, 9);
+                        int guess = rd.Next(0, 9);
+                        Console.WriteLine(p.playerID + " targets " + target.playerID);
+                        Console.WriteLine(p.playerID + " says " + card + ", " + target.playerID + " guesses " + guess);
+                        if (guess == card)
+                        {
+                            p.health++;
+                            target.health++;
+                        }
+                        else
+                        {
+                            int diff = Math.Abs(card - guess);
+                            target.health -= diff;
+                        }
+                        Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
                     }
-                    else
-                    {
-                        int diff = Math.Abs(card - guess);
-                        target.health -= diff;
-                    }
-                    Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
                 }
                 players.RemoveAll(item => item.health < 1);
                 Console.WriteLine("Players remaining: " + players.Count);
