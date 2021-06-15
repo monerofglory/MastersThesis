@@ -23,7 +23,7 @@ namespace MastersThesis
                 foreach (Player p in players)
                 {
                     Random rd = new Random();
-                    Player target = players[rd.Next(0, players.Count)];
+                    Player target = PlayerListFunctions.getTarget(p.playerID, players);
                     int card = rd.Next(0, 9);
                     int guess = rd.Next(0, 9);
                     Console.WriteLine(p.playerID + " targets " + target.playerID);
