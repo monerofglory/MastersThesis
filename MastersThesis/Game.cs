@@ -18,10 +18,32 @@ namespace MastersThesis
 
         static void GameLoop()
         {
-            foreach( Player p in players )
+            while (players.Count > 1)
             {
-                Console.WriteLine(p.playerID);
+                foreach (Player p in players)
+                {
+                    Random rd = new Random();
+                    Player target = players[rd.Next(0, players.Count)];
+                    int card = rd.Next(0, 9);
+                    int guess = rd.Next(0, 9);
+                    Console.WriteLine(p.playerID + " targets " + target.playerID);
+                    Console.WriteLine(p.playerID + " says " + card + ", " + target.playerID + " guesses " + guess);
+                    if (guess == card)
+                    {
+                        p.health++;
+                        target.health++;
+                    }
+                    else
+                    {
+                        int diff = Math.Abs(card - guess);
+                        target.health -= diff;
+                    }
+                    Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
+                }
+                players.RemoveAll(item => item.health < 1);
+                Console.WriteLine("Players remaining: " + players.Count);
             }
+            Console.WriteLine("Player " + players[0].playerID + " wins! With " + players[0].health + " remaining!");
         }
     }
 }

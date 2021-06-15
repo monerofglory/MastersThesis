@@ -14,6 +14,7 @@ namespace MastersThesis
         public List<String> strategies;
         public Player(int id)
         {
+            health = 20;
             playerID = id;
         }
     }
