@@ -12,10 +12,12 @@ namespace MastersThesis
         public PerceivedPlayerModel perceivedPlayerModel;
         public List<String> traits;
         public List<String> strategies;
-        public Player(int id)
+        public Player(int id, List<string> new_traits, List<string> new_strategies)
         {
             health = 20;
             playerID = id;
+            traits.AddRange(new_traits);
+            strategies.AddRange(new_strategies);
         }
     }
 }
