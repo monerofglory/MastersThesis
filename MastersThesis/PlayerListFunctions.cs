@@ -38,8 +38,8 @@ namespace MastersThesis
         {
             Random rd = new Random(); //Initialise random number gen
             List<string> new_strategies = new List<string>();
-            string[] strategies = { "Tit-For-Tat", "Attack Most Health", "Attack Lowest Health" }; //Predefined traits
-            for (int i = 0; i < rd.Next(0, 2); i++) //Add a number of traits from list
+            string[] strategies = { "Tit-For-Tat", "Attack Most Health", "Attack Lowest Health" }; //Predefined strategies
+            for (int i = 0; i < rd.Next(0, 2); i++) //Add a number of strategies from list
             {
                 new_strategies.Add(strategies[rd.Next(0, strategies.Length)]);
             }

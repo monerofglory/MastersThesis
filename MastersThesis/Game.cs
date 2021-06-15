@@ -11,7 +11,7 @@ namespace MastersThesis
             //Initialising players
             for (int i = 0; i < 20; i++)
             {
-                players.Add(new Player(i));
+                players.Add(new Player(i, PlayerListFunctions.getNewTrait(), PlayerListFunctions.getNewStrategy()));
             }
             GameLoop();
         }
