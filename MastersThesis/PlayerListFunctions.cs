@@ -26,10 +26,14 @@ namespace MastersThesis
         {
             Random rd = new Random(); //Initialise random number gen
             List<string> new_trait = new List<string>();
-            string[] traits = { "Aggressive", "Deceitful", "Forgiving", "Trustworthy" }; //Predefined traits
-            for (int i = 0; i < rd.Next(0, 2); i++) //Add a number of traits from list
+            string[] traits = { "Trusting", "Untrusting", "Suspicious", "Unsuspicious", "Aggressive", "Passive", "Calculating", "Virtuous"}; //Predefined traits
+            for (int i = 0; i < rd.Next(1, 3); i++) //Add a number of traits from list
             {
-                new_trait.Add(traits[rd.Next(0, traits.Length)]);
+                string new_trait_to_add = traits[rd.Next(0, traits.Length)];
+                if (!new_trait.Contains(new_trait_to_add)) //Check if trait is already added.
+                {
+                    new_trait.Add(new_trait_to_add);
+                }
             }
             return new_trait; //Return list
         }
@@ -39,7 +43,7 @@ namespace MastersThesis
             Random rd = new Random(); //Initialise random number gen
             List<string> new_strategies = new List<string>();
             string[] strategies = { "Tit-For-Tat", "Attack Most Health", "Attack Lowest Health" }; //Predefined strategies
-            for (int i = 0; i < rd.Next(0, 2); i++) //Add a number of strategies from list
+            for (int i = 0; i < rd.Next(1, 3); i++) //Add a number of strategies from list
             {
                 new_strategies.Add(strategies[rd.Next(0, strategies.Length)]);
             }

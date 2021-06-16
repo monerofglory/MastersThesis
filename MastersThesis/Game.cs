@@ -18,6 +18,16 @@ namespace MastersThesis
 
         static void GameLoop()
         {
+            Console.WriteLine("Player " + players[0].playerID);
+            Console.WriteLine("Traits:");
+            foreach(string t in players[0].traits)
+            {
+                Console.WriteLine(t);
+            }
+            Console.WriteLine("Values:");
+            Console.WriteLine("Trust: " + players[0].playerModel.trust);
+            Console.WriteLine("Deceitfulness: " + players[0].playerModel.deceitfulness);
+            Console.WriteLine("DeceitAbility: " + players[0].playerModel.deceitAbility);
             while (players.Count > 1)
             {
                 foreach (Player p in players)
@@ -28,8 +38,8 @@ namespace MastersThesis
                         Player target = PlayerListFunctions.getTarget(p.playerID, players);
                         int card = rd.Next(0, 9);
                         int guess = rd.Next(0, 9);
-                        Console.WriteLine(p.playerID + " targets " + target.playerID);
-                        Console.WriteLine(p.playerID + " says " + card + ", " + target.playerID + " guesses " + guess);
+                        //Console.WriteLine(p.playerID + " targets " + target.playerID);
+                        //Console.WriteLine(p.playerID + " says " + card + ", " + target.playerID + " guesses " + guess);
                         if (guess == card)
                         {
                             p.health++;
@@ -40,7 +50,7 @@ namespace MastersThesis
                             int diff = Math.Abs(card - guess);
                             target.health -= diff;
                         }
-                        Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
+                        //Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
                     }
                 }
                 players.RemoveAll(item => item.health < 1);

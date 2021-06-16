@@ -14,9 +14,15 @@ namespace MastersThesis
         public PlayerModel(Player p)
         {
             Random rd = new Random();
-            //Random trust variable
+            //Initialising trust
             trust += rd.Next(-20, 20);
             trust += TrustModifiers(p);
+            //Initialising deceitfulness
+            deceitfulness += rd.Next(-20, 20);
+            deceitfulness += DeceitfulnessModifiers(p);
+            //Initialising deceitAbility
+            deceitAbility += rd.Next(-20, 20);
+            deceitAbility += DeceitAbilityModifiers(p);
         }
 
         private int TrustModifiers(Player p)
@@ -24,21 +30,65 @@ namespace MastersThesis
             int trustModifier = 0;
             if (p.traits.Contains("Trusting"))
             {
-                trust += 20;
+                trustModifier += 20;
             }
             if (p.traits.Contains("Untrusting"))
             {
-                trust -= 20;
+                trustModifier -= 20;
             }
             if (p.traits.Contains("Unsuspicious"))
             {
-                trust += 10;
+                trustModifier += 10;
             }
             if (p.traits.Contains("Suspicious"))
             {
-                trust -= 10;
+                trustModifier -= 10;
             }
             return trustModifier;
+        }
+
+        private int DeceitfulnessModifiers(Player p)
+        {
+            int deceitfulnessModifier = 0;
+            if (p.traits.Contains("Deceitful"))
+            {
+                deceitfulnessModifier += 20;
+            }
+            if (p.traits.Contains("Honest"))
+            {
+                deceitfulnessModifier -= 20;
+            }
+            if (p.traits.Contains("Calculating"))
+            {
+                deceitfulnessModifier += 10;
+            }
+            if (p.traits.Contains("Kind"))
+            {
+                deceitfulnessModifier -= 10;
+            }
+            return deceitfulnessModifier;
+        }
+
+        private int DeceitAbilityModifiers(Player p)
+        {
+            int deceitAbilityModifier = 0;
+            if (p.traits.Contains("Cut-Throat"))
+            {
+                deceitAbilityModifier += 20;
+            }
+            if (p.traits.Contains("Virtuous"))
+            {
+                deceitAbilityModifier -= 20;
+            }
+            if (p.traits.Contains("Aggressive"))
+            {
+                deceitAbilityModifier += 10;
+            }
+            if (p.traits.Contains("Passive"))
+            {
+                deceitAbilityModifier -= 10;
+            }
+            return deceitAbilityModifier;
         }
     }
 }
