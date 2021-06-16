@@ -7,9 +7,9 @@ namespace MastersThesis
     class PlayerModel
     {
         //Baseline variables are 50
-        public int deceitfulness = 50;
-        public int deceitAbility = 50;
-        public int trust = 50;
+        public double deceitfulness = 50;
+        public double deceitAbility = 50;
+        public double trust = 50;
         
         public PlayerModel(Player p)
         {
@@ -25,9 +25,9 @@ namespace MastersThesis
             deceitAbility += DeceitAbilityModifiers(p);
         }
 
-        private int TrustModifiers(Player p)
+        private double TrustModifiers(Player p)
         {
-            int trustModifier = 0;
+            double trustModifier = 0;
             if (p.traits.Contains("Trusting"))
             {
                 trustModifier += 20;
@@ -47,9 +47,9 @@ namespace MastersThesis
             return trustModifier;
         }
 
-        private int DeceitfulnessModifiers(Player p)
+        private double DeceitfulnessModifiers(Player p)
         {
-            int deceitfulnessModifier = 0;
+            double deceitfulnessModifier = 0;
             if (p.traits.Contains("Deceitful"))
             {
                 deceitfulnessModifier += 20;
@@ -69,9 +69,9 @@ namespace MastersThesis
             return deceitfulnessModifier;
         }
 
-        private int DeceitAbilityModifiers(Player p)
+        private double DeceitAbilityModifiers(Player p)
         {
-            int deceitAbilityModifier = 0;
+            double deceitAbilityModifier = 0;
             if (p.traits.Contains("Cut-Throat"))
             {
                 deceitAbilityModifier += 20;

@@ -15,7 +15,6 @@ namespace MastersThesis
                 target = players[rd.Next(0, players.Count)];
                 if (target.playerID != currentId)
                 {
-                    found = true;
                     return target;
                 }
             }
@@ -48,6 +47,26 @@ namespace MastersThesis
                 new_strategies.Add(strategies[rd.Next(0, strategies.Length)]);
             }
             return new_strategies; //Return list
+        }
+
+        public static Player GetPlayerByID(int id, List<Player> players)
+        {
+            foreach(Player p in players)
+            {
+                if (p.playerID == id)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        public static void RemovePerceivedModels(int id, List<Player> players)
+        {
+            foreach(Player p in players)
+            {
+                p.perceivedPlayerModels.RemoveAll(item => item.playerID == id);
+            }
         }
     }
 }

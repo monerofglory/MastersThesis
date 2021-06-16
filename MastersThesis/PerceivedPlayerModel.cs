@@ -7,10 +7,23 @@ namespace MastersThesis
     class PerceivedPlayerModel
     {
         public int playerID;
-        public int trust;
-        public int threat;
-        public int perceivedTrustfullness;
-        public int perceivedDeceitfulness;
+        public double trust = 50;
+        public double perceivedTrustfullness = 50;
+        public double perceivedDeceitfulness = 50;
 
+        public PerceivedPlayerModel(int id)
+        {
+            playerID = id;
+        }
+        public double GetThreat()
+        {
+            double threat = perceivedDeceitfulness + perceivedTrustfullness;
+            return threat;
+        }
+
+        public void AddTrust(PlayerModel pm, int amt)
+        {
+            trust += amt * (1 + pm.trust);
+        }
     }
 }

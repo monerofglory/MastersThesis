@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MastersThesis
 {
@@ -9,9 +10,14 @@ namespace MastersThesis
         static void Main(string[] args)
         {
             //Initialising players
-            for (int i = 0; i < 20; i++)
+            int num = 20; //Number of players
+            for (int i = 0; i < num; i++)
             {
                 players.Add(new Player(i, PlayerListFunctions.getNewTrait(), PlayerListFunctions.getNewStrategy()));
+            }
+            for (int i = 0; i < num; i++)
+            {
+                players[i].AddPerceivedPlayerModels(players);
             }
             GameLoop();
         }
@@ -34,27 +40,43 @@ namespace MastersThesis
                 {
                     if (p.health > 0)
                     {
+                        Console.WriteLine("PLAYER TURN: " + p.playerID);
                         Random rd = new Random();
-                        Player target = PlayerListFunctions.getTarget(p.playerID, players);
+                        int targetID = p.GetHighestThreat(players);
+                        Console.WriteLine(targetID);
+                        Player target = PlayerListFunctions.GetPlayerByID(targetID, players);
                         int card = rd.Next(0, 9);
                         int guess = rd.Next(0, 9);
-                        //Console.WriteLine(p.playerID + " targets " + target.playerID);
-                        //Console.WriteLine(p.playerID + " says " + card + ", " + target.playerID + " guesses " + guess);
+                        Console.WriteLine(p.playerID + " targets " + target.playerID);
+                        Console.WriteLine(p.playerID + " says " + card + ", " + target.playerID + " guesses " + guess);
                         if (guess == card)
                         {
                             p.health++;
                             target.health++;
+                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, 1);
                         }
                         else
                         {
                             int diff = Math.Abs(card - guess);
                             target.health -= diff;
                         }
-                        //Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
+                        Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
+                    }
+                }
+                //Removing perceivedModels
+                foreach(Player p in players)
+                {
+                    if (p.health < 1)
+                    {
+                        PlayerListFunctions.RemovePerceivedModels(p.playerID, players);
                     }
                 }
                 players.RemoveAll(item => item.health < 1);
                 Console.WriteLine("Players remaining: " + players.Count);
+                foreach(Player p in players)
+                {
+                    Console.WriteLine("Player " + p.playerID + " with health = " + p.health);
+                }
             }
             Console.WriteLine("Player " + players[0].playerID + " wins! With " + players[0].health + " remaining!");
         }
