@@ -48,11 +48,6 @@ namespace MastersThesis
         {
             double highest = -9999999;
             int highest_player = -1;
-            if (players.Count == 2)
-            {
-                Console.WriteLine("---");
-                Console.WriteLine(perceivedPlayerModels.Count);
-            }
             foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
                 
@@ -67,6 +62,40 @@ namespace MastersThesis
                 }
             }
             return highest_player;
+        }
+
+        public int GetCard()
+        {
+            Random rd = new Random();
+            return rd.Next(0, 9);
+        }
+
+        public string GenerateStatement(int card)
+        {
+            int new_card = card;
+            Random rd = new Random();
+            if (rd.Next(0, 100) <= playerModel.deceitfulness)
+            {
+                int bound = Convert.ToInt32(Math.Round(playerModel.deceitAbility / 10));
+                new_card += rd.Next(-1 * bound, bound);
+                if (new_card > 9) { new_card = 9; } //If greater than 9, set to 9
+                else if (new_card < 1) { new_card = 1; } 
+                return (new_card).ToString();
+            }
+            else
+            {
+                return new_card.ToString();
+            }
+        }
+        public int GuessCard(string statement, Player p)
+        {
+            Random rd = new Random();
+            double pD = GetPerceivedPlayerModel(p).perceivedDeceitfulness;
+            if (rd.Next(0, 100) <= pD)
+            {
+                return rd.Next(0, 9);
+            }
+            return rd.Next(0, 9);
         }
     }
 }
