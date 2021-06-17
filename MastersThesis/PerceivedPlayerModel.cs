@@ -7,9 +7,9 @@ namespace MastersThesis
     class PerceivedPlayerModel
     {
         public int playerID;
-        public double trust = 50;
         public double perceivedTrustfullness = 50;
         public double perceivedDeceitfulness = 50;
+        public double perceivedDeceitAbility = 50;
 
         public PerceivedPlayerModel(int id)
         {
@@ -17,7 +17,7 @@ namespace MastersThesis
         }
         public double GetThreat()
         {
-            double threat = perceivedDeceitfulness + perceivedTrustfullness;
+            double threat = perceivedDeceitfulness + perceivedDeceitAbility - (perceivedTrustfullness * 2);
             return threat;
         }
 

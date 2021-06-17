@@ -44,6 +44,7 @@ namespace MastersThesis
             return null;
         }
 
+        //Get the player with the highest threat that is still alive.
         public int GetHighestThreat(List<Player> players)
         {
             double highest = -9999999;
@@ -64,38 +65,57 @@ namespace MastersThesis
             return highest_player;
         }
 
+        //Get the card that you're going to say.
         public int GetCard()
         {
             Random rd = new Random();
             return rd.Next(0, 9);
         }
 
+        //Generate a statement based on how deceitful you are, and by how much.
         public string GenerateStatement(int card)
         {
             int new_card = card;
             Random rd = new Random();
-            if (rd.Next(0, 100) <= playerModel.deceitfulness)
+            if (rd.Next(0, 100) <= playerModel.deceitfulness) //Check how deceitful this player is
             {
+                //I am going to deceive
+                //Find out by HOW MUCH by
+                //Convert deceitAbility / 10, rounded. E.g deceitAbility 68 => 6.8 => 7 => random number between -7 and 7
                 int bound = Convert.ToInt32(Math.Round(playerModel.deceitAbility / 10));
+                //Fetch new deceit card
                 new_card += rd.Next(-1 * bound, bound);
                 if (new_card > 9) { new_card = 9; } //If greater than 9, set to 9
-                else if (new_card < 1) { new_card = 1; } 
+                else if (new_card < 1) { new_card = 1; } //If <1 set to 1
                 return (new_card).ToString();
             }
             else
             {
+                //I am going to tell the truth
                 return new_card.ToString();
             }
         }
+
+        //Guess the card based on the statement made by the opponent, along with their perceived model.
         public int GuessCard(string statement, Player p)
         {
             Random rd = new Random();
-            double pD = GetPerceivedPlayerModel(p).perceivedDeceitfulness;
+            //Fetch perceivedDeceit of opponent
+            PerceivedPlayerModel ppm = GetPerceivedPlayerModel(p);
+            double pD = ppm.perceivedDeceitfulness;
             if (rd.Next(0, 100) <= pD)
             {
-                return rd.Next(0, 9);
+                //I believe them to be deceiving me
+                //bound is how much they are deceiving me by
+                double pDA = ppm.perceivedDeceitAbility;
+                int bound = Convert.ToInt32(Math.Round(pDA / 10));
+                int guessed_card = rd.Next(-1 * bound, bound);
+                if (guessed_card > 9) { guessed_card = 9; }
+                else if (guessed_card < 1) { guessed_card = 1; }
+                return guessed_card;
             }
-            return rd.Next(0, 9);
+            //I think they are telling the truth
+            return Convert.ToInt32(statement);
         }
     }
 }

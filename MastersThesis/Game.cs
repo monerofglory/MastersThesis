@@ -9,17 +9,21 @@ namespace MastersThesis
         public static List<Player> players = new List<Player>();
         static void Main(string[] args)
         {
-            //Initialising players
-            int num = 20; //Number of players
-            for (int i = 0; i < num; i++)
+            for (int j = 0; j < 5000; j++)
             {
-                players.Add(new Player(i, PlayerListFunctions.getNewTrait(), PlayerListFunctions.getNewStrategy()));
+                players.Clear();
+                //Initialising players
+                int num = 20; //Number of players
+                for (int i = 0; i < num; i++)
+                {
+                    players.Add(new Player(i, PlayerListFunctions.getNewTrait(), PlayerListFunctions.getNewStrategy()));
+                }
+                for (int i = 0; i < num; i++)
+                {
+                    players[i].AddPerceivedPlayerModels(players);
+                }
+                GameLoop();
             }
-            for (int i = 0; i < num; i++)
-            {
-                players[i].AddPerceivedPlayerModels(players);
-            }
-            GameLoop();
         }
 
         static void GameLoop()
