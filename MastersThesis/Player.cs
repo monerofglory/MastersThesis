@@ -46,10 +46,16 @@ namespace MastersThesis
 
         public int GetHighestThreat(List<Player> players)
         {
-            double highest = -999;
+            double highest = -9999999;
             int highest_player = -1;
+            if (players.Count == 2)
+            {
+                Console.WriteLine("---");
+                Console.WriteLine(perceivedPlayerModels.Count);
+            }
             foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
+                
                 if (PlayerListFunctions.GetPlayerByID(ppm.playerID, players).health >= 1)
                 {
                     double threat = ppm.GetThreat();

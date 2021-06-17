@@ -40,7 +40,6 @@ namespace MastersThesis
                 {
                     if (p.health > 0)
                     {
-                        Console.WriteLine("PLAYER TURN: " + p.playerID);
                         Random rd = new Random();
                         int targetID = p.GetHighestThreat(players);
                         Console.WriteLine(targetID);
@@ -59,6 +58,14 @@ namespace MastersThesis
                         {
                             int diff = Math.Abs(card - guess);
                             target.health -= diff;
+                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, diff * -1);
+                            foreach(Player p2 in players)
+                            {
+                                if (p2.playerID != p.playerID)
+                                {
+                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, -1);
+                                }
+                            }
                         }
                         Console.WriteLine("Player " + target.playerID + " has health = " + target.health);
                     }
@@ -79,6 +86,10 @@ namespace MastersThesis
                 }
             }
             Console.WriteLine("Player " + players[0].playerID + " wins! With " + players[0].health + " remaining!");
+            foreach(string trait in players[0].traits)
+            {
+                Console.WriteLine(trait);
+            }
         }
     }
 }

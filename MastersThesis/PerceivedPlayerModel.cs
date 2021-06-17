@@ -23,7 +23,7 @@ namespace MastersThesis
 
         public void AddTrust(PlayerModel pm, int amt)
         {
-            trust += amt * (1 + pm.trust);
+            perceivedTrustfullness += amt * (1 + pm.trust);
         }
     }
 }

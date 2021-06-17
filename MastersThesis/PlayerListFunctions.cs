@@ -6,20 +6,6 @@ namespace MastersThesis
 {
     class PlayerListFunctions { 
     
-        public static Player getTarget(int currentId, List<Player> players) {
-            Random rd = new Random();
-            Player target;
-            bool found = false;
-            while (!found)
-            {
-                target = players[rd.Next(0, players.Count)];
-                if (target.playerID != currentId)
-                {
-                    return target;
-                }
-            }
-            return null;
-        }
 
         public static List<string> getNewTrait()
         {
