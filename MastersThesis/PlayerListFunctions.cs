@@ -47,11 +47,20 @@ namespace MastersThesis
             return null;
         }
 
-        public static void RemovePerceivedModels(int id, List<Player> players)
+        public static void RemovePerceivedModels(List<Player> players)
         {
             foreach(Player p in players)
             {
-                p.perceivedPlayerModels.RemoveAll(item => item.playerID == id);
+                if (p.health < 1)
+                {
+                    foreach(Player p2 in players)
+                    {
+                        if (p2 != p)
+                        {
+                            p2.perceivedPlayerModels.RemoveAll(item => item.playerID == p.playerID);
+                        }
+                    }
+                }
             }
         }
     }

@@ -21,7 +21,7 @@ namespace MastersThesis
             return threat;
         }
 
-        public void AddTrust(PlayerModel pm, int amt)
+        public void AddTrust(PlayerModel pm, double amt)
         {
             perceivedTrustfullness += amt * (1 + pm.trust);
         }

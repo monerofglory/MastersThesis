@@ -105,17 +105,32 @@ namespace MastersThesis
             double pD = ppm.perceivedDeceitfulness;
             if (rd.Next(0, 100) <= pD)
             {
+                Console.WriteLine("Target believes they are being deceived");
                 //I believe them to be deceiving me
                 //bound is how much they are deceiving me by
                 double pDA = ppm.perceivedDeceitAbility;
                 int bound = Convert.ToInt32(Math.Round(pDA / 10));
-                int guessed_card = rd.Next(-1 * bound, bound);
-                if (guessed_card > 9) { guessed_card = 9; }
-                else if (guessed_card < 1) { guessed_card = 1; }
+                int guessed_card = Convert.ToInt32(statement);
+                while (guessed_card == Convert.ToInt32(statement)) //If deceived, dont guess card made in statement.
+                {
+                    guessed_card = rd.Next(-1 * bound, bound);
+                    if (guessed_card > 9) { guessed_card = 9; }
+                    else if (guessed_card < 1) { guessed_card = 1; }
+                }
                 return guessed_card;
             }
             //I think they are telling the truth
+            Console.WriteLine("Target believes they are telling the truth");
             return Convert.ToInt32(statement);
+        }
+
+        public Argument GetArgument(Player p, List<Player> players)
+        {
+            Player target = PlayerListFunctions.GetPlayerByID(p.GetHighestThreat(players), players);
+            //Get statement
+            string statement = "Trust";
+            Argument a = new Argument(statement, p, target);
+            return a;
         }
     }
 }
