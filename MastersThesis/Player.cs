@@ -14,7 +14,7 @@ namespace MastersThesis
         public List<String> strategies = new List<string>();
         public Player(int id, List<string> new_traits, List<string> new_strategies)
         {
-            health = 20;
+            health = 1000;
             playerID = id;
             traits.AddRange(new_traits);
             strategies.AddRange(new_strategies);
@@ -131,6 +131,25 @@ namespace MastersThesis
             string statement = "Trust";
             Argument a = new Argument(statement, p, target);
             return a;
+        }
+
+        //Decay is the natural tendency over time to 'forgive' players for their transgressions.
+        //Perceived player models tend towards 50 (the middle) over time.
+        public void Decay()
+        {
+            foreach(PerceivedPlayerModel ppm in perceivedPlayerModels)
+            {
+                //Decay for perceivedTrustfulness
+                if (ppm.perceivedTrustfullness > 50) { ppm.perceivedTrustfullness-= 0.1; }
+                else if (ppm.perceivedTrustfullness < 50) { ppm.perceivedTrustfullness+= 0.1; }
+                //Decay for perceivedDeceit
+                if (ppm.perceivedDeceitfulness > 50) { ppm.perceivedDeceitfulness-= 0.1; }
+                else if (ppm.perceivedDeceitfulness < 50) { ppm.perceivedDeceitfulness+=0.1; }
+                //Decay for perceivedDeceitAbility
+                if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility-= 0.1; }
+                else if (ppm.perceivedDeceitAbility < 50) { ppm.perceivedDeceitAbility+=0.1; }
+
+            }
         }
     }
 }

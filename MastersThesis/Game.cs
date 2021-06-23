@@ -37,9 +37,25 @@ namespace MastersThesis
                 //Removing players from the players list that are out
                 players.RemoveAll(item => item.health < 1);
                 //DELIBERATION PHASE
-                DeliberationPhase();
+                if (players.Count > 1)
+                {
+                    DeliberationPhase();
+                }
+                //Decay each players perceived player models
+                foreach(Player p in players)
+                {
+                    p.Decay();
+                }
             }
             Console.WriteLine("Player " + players[0].playerID + " wins!");
+            foreach(string t in players[0].traits)
+            {
+                Console.WriteLine(t);
+            }
+            Console.WriteLine("Model:");
+            Console.WriteLine(players[0].playerModel.trust);
+            Console.WriteLine(players[0].playerModel.deceitfulness);
+            Console.WriteLine(players[0].playerModel.deceitAbility);
         }
 
         static void DeliberationPhase()
@@ -47,13 +63,13 @@ namespace MastersThesis
             List<Argument> arguments = new List<Argument>();
             foreach (Player p in players)
             {
-                arguments.Add(p.GetArgument(p, players));
+                arguments.Add(p.GetArgument(p, players)); //Fetch arguments and add them to list of arguments.
             }
-            foreach(Argument a in arguments)
+            foreach(Argument a in arguments) //Loop through all the arguments and resolve them (add to ppms).
             {
                 foreach(Player p in players)
                 {
-                    if (a.sender != p)
+                    if (a.receiver != p)
                     {
                         p.GetPerceivedPlayerModel(a.receiver).AddTrust(p.playerModel, 1);
                     }
@@ -75,12 +91,12 @@ namespace MastersThesis
                     int card = p.GetCard();
                     //Get the statement about the card (truth or lie)
                     string statement = p.GenerateStatement(card);
-                    Console.WriteLine("--------");
-                    Console.WriteLine("Player Turn: " + p.playerID);
-                    Console.WriteLine("Targeting " + target.playerID + " with card " + card + " , saying " + statement);
+                    //Console.WriteLine("--------");
+                    //Console.WriteLine("Player Turn: " + p.playerID);
+                    //Console.WriteLine("Targeting " + target.playerID + " with card " + card + " , saying " + statement);
                     //Target makes guess about card
                     int guess = target.GuessCard(statement, p);
-                    Console.WriteLine("Target guesses: " + guess);
+                    //Console.WriteLine("Target guesses: " + guess);
                     //Console.ReadLine();
                     if (guess == card) //If correct, both gain 1 health and add 1 trust to the model.
                     {
@@ -101,19 +117,19 @@ namespace MastersThesis
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, 0.5);
+                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, 0.1);
                                 }
                             }
 
                         }
                         else //If opponent DID lie
                         {
-                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, diff * -1);
+                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, diff * -0.1);
                             foreach (Player p2 in players)
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, -0.5);
+                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, -0.1);
                                 }
                             }
                         }
