@@ -13,7 +13,7 @@ namespace MastersThesis
             {
                 players.Clear();
                 //Initialising players
-                int num = 20; //Number of players
+                int num = 4; //Number of players
                 for (int i = 0; i < num; i++)
                 {
                     players.Add(new Player(i, PlayerListFunctions.getNewTrait(), PlayerListFunctions.getNewStrategy()));
@@ -21,6 +21,7 @@ namespace MastersThesis
                 for (int i = 0; i < num; i++)
                 {
                     players[i].AddPerceivedPlayerModels(players);
+                    
                 }
                 GameLoop();
             }
@@ -46,6 +47,10 @@ namespace MastersThesis
                 {
                     p.Decay();
                 }
+                Debug.Log(players);
+
+
+
             }
             Console.WriteLine("Player " + players[0].playerID + " wins!");
             foreach(string t in players[0].traits)
@@ -96,7 +101,7 @@ namespace MastersThesis
                     {
                         p.health++;
                         target.health++;
-                        target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, 1);
+                        target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, 4);
                     }
                     else //If incorrect
                     {
@@ -106,28 +111,29 @@ namespace MastersThesis
                         //If the opponent DID NOT lie
                         if (guess == Convert.ToInt32(statement))
                         {
-                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, 1);
+                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, 4);
                             foreach (Player p2 in players)
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, 0.1);
+                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, 2);
                                 }
                             }
 
                         }
                         else //If opponent DID lie
                         {
-                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, diff * -0.1);
+                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, diff * -1);
                             foreach (Player p2 in players)
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, -0.1);
+                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, -1);
                                 }
                             }
                         }
                     }
+                    
                     //Console.WriteLine("Player " + p.playerID + " health = " + p.health);
                     //Console.WriteLine("PLayer " + target.playerID + " health = " + target.health);
                 }

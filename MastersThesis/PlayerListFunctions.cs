@@ -51,22 +51,22 @@ namespace MastersThesis
                 switch(a.statement)
                 {
                     case "Deceitful":
-                        deceitChange = 0.1;
+                        deceitChange = 1;
                         break;
                     case "NotDeceitful":
-                        deceitChange = -0.1;
+                        deceitChange = -1;
                         break;
                     case "Aggressive":
-                        deceitAbilityChange = 0.1;
+                        deceitAbilityChange = 1;
                         break;
                     case "NotAggressive":
-                        deceitAbilityChange = -0.1;
+                        deceitAbilityChange = -1;
                         break;
                     case "Trustful":
-                        trustChange = 0.1;
+                        trustChange = 1;
                         break;
                     case "NotTrustful":
-                        trustChange = -0.1;
+                        trustChange = -1;
                         break;
                 }
                 if (p != a.receiver)
