@@ -41,6 +41,42 @@ namespace MastersThesis
             return new_strategies; //Return list
         }
 
+        public static void ResolveArguments(Argument a, List<Player> players)
+        {
+            double trustChange = 0;
+            double deceitChange = 0;
+            double deceitAbilityChange = 0;
+            foreach (Player p in players)
+            {
+                switch(a.statement)
+                {
+                    case "Deceitful":
+                        deceitChange = 0.1;
+                        break;
+                    case "NotDeceitful":
+                        deceitChange = -0.1;
+                        break;
+                    case "Aggressive":
+                        deceitAbilityChange = 0.1;
+                        break;
+                    case "NotAggressive":
+                        deceitAbilityChange = -0.1;
+                        break;
+                    case "Trustful":
+                        trustChange = 0.1;
+                        break;
+                    case "NotTrustful":
+                        trustChange = -0.1;
+                        break;
+                }
+                if (p != a.receiver)
+                {
+                    p.GetPerceivedPlayerModel(a.receiver).perceivedDeceitfulness += deceitChange;
+                    p.GetPerceivedPlayerModel(a.receiver).perceivedDeceitAbility += deceitAbilityChange;
+                    p.GetPerceivedPlayerModel(a.receiver).perceivedTrustfullness += trustChange;
+                }
+            }
+        }
         public static Player GetPlayerByID(int id, List<Player> players)
         {
             foreach(Player p in players)

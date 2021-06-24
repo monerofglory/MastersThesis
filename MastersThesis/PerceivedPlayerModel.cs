@@ -20,9 +20,9 @@ namespace MastersThesis
             perceivedDeceitAbility += rd.Next(-10, 10);
 
         }
-        public double GetThreat()
+        public double GetThreat(List<Player> players)
         {
-            double threat = perceivedDeceitfulness + perceivedDeceitAbility - (perceivedTrustfullness * 2);
+            double threat = perceivedDeceitfulness + perceivedDeceitAbility - (perceivedTrustfullness * 2) + PlayerListFunctions.GetPlayerByID(playerID, players).health;
             return threat;
         }
 

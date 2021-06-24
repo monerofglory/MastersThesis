@@ -14,7 +14,7 @@ namespace MastersThesis
         public List<String> strategies = new List<string>();
         public Player(int id, List<string> new_traits, List<string> new_strategies)
         {
-            health = 1000;
+            health = 100;
             playerID = id;
             traits.AddRange(new_traits);
             strategies.AddRange(new_strategies);
@@ -54,7 +54,7 @@ namespace MastersThesis
                 
                 if (PlayerListFunctions.GetPlayerByID(ppm.playerID, players).health >= 1)
                 {
-                    double threat = ppm.GetThreat();
+                    double threat = ppm.GetThreat(players);
                     if (threat > highest)
                     {
                         highest = threat;
@@ -127,9 +127,10 @@ namespace MastersThesis
         public Argument GetArgument(Player p, List<Player> players)
         {
             Player target = PlayerListFunctions.GetPlayerByID(p.GetHighestThreat(players), players);
+            Random rd = new Random();
             //Get statement
-            string statement = "Trust";
-            Argument a = new Argument(statement, p, target);
+            string[] statements = { "Deceitful", "NotDeceitful", "Aggressive", "NotAggressive", "Trustful", "NotTrustful" };
+            Argument a = new Argument(statements[rd.Next(statements.Length)], p, target);
             return a;
         }
 
