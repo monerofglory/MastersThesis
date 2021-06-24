@@ -13,7 +13,7 @@ namespace MastersThesis
             {
                 players.Clear();
                 //Initialising players
-                int num = 20; //Number of players
+                int num = 200; //Number of players
                 for (int i = 0; i < num; i++)
                 {
                     players.Add(new Player(i, PlayerListFunctions.getNewTrait(), PlayerListFunctions.getNewStrategy()));
@@ -22,6 +22,28 @@ namespace MastersThesis
                 {
                     players[i].AddPerceivedPlayerModels(players);
                 }
+                int a = 0;
+                int b = 0;
+                int c = 0;
+                foreach (Player p in players)
+                {
+                    if (p.traits.Contains("Timid"))
+                    {
+                        a++;
+                    }
+                    else if (p.traits.Contains("Aggressive"))
+                    {
+                        b++;
+                    }
+                    else if (p.traits.Contains("Calculating"))
+                    {
+                        c++;
+                    }
+
+                }
+                Console.WriteLine(a);
+                Console.WriteLine(b);
+                Console.WriteLine(c);
                 GameLoop();
             }
         }
@@ -134,8 +156,8 @@ namespace MastersThesis
                             }
                         }
                     }
-                    Console.WriteLine("Player " + p.playerID + " health = " + p.health);
-                    Console.WriteLine("PLayer " + target.playerID + " health = " + target.health);
+                    //Console.WriteLine("Player " + p.playerID + " health = " + p.health);
+                    //Console.WriteLine("PLayer " + target.playerID + " health = " + target.health);
                 }
             }
         }

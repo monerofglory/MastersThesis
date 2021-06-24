@@ -105,7 +105,7 @@ namespace MastersThesis
             double pD = ppm.perceivedDeceitfulness;
             if (rd.Next(0, 100) <= pD)
             {
-                Console.WriteLine("Target believes they are being deceived");
+                //Console.WriteLine("Target believes they are being deceived");
                 //I believe them to be deceiving me
                 //bound is how much they are deceiving me by
                 double pDA = ppm.perceivedDeceitAbility;
@@ -120,7 +120,7 @@ namespace MastersThesis
                 return guessed_card;
             }
             //I think they are telling the truth
-            Console.WriteLine("Target believes they are telling the truth");
+            //Console.WriteLine("Target believes they are telling the truth");
             return Convert.ToInt32(statement);
         }
 
