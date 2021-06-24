@@ -14,6 +14,11 @@ namespace MastersThesis
         public PerceivedPlayerModel(int id)
         {
             playerID = id;
+            Random rd = new Random();
+            perceivedTrustfullness += rd.Next(-10, 10);
+            perceivedDeceitfulness += rd.Next(-10, 10);
+            perceivedDeceitAbility += rd.Next(-10, 10);
+
         }
         public double GetThreat()
         {

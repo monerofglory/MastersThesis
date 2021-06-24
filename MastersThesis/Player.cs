@@ -146,7 +146,7 @@ namespace MastersThesis
                 if (ppm.perceivedDeceitfulness > 50) { ppm.perceivedDeceitfulness-= 0.1; }
                 else if (ppm.perceivedDeceitfulness < 50) { ppm.perceivedDeceitfulness+=0.1; }
                 //Decay for perceivedDeceitAbility
-                if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility-= 0.1; }
+                if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility-= 0.1 ; }
                 else if (ppm.perceivedDeceitAbility < 50) { ppm.perceivedDeceitAbility+=0.1; }
 
             }
