@@ -47,6 +47,7 @@ namespace MastersThesis
             return trustModifier;
         }
 
+
         private double DeceitfulnessModifiers(Player p)
         {
             double deceitfulnessModifier = 0;
@@ -62,7 +63,7 @@ namespace MastersThesis
             {
                 deceitfulnessModifier += 10;
             }
-            if (p.traits.Contains("Kind"))
+            if (p.traits.Contains("Fair"))
             {
                 deceitfulnessModifier -= 10;
             }
@@ -72,19 +73,19 @@ namespace MastersThesis
         private double DeceitAbilityModifiers(Player p)
         {
             double deceitAbilityModifier = 0;
-            if (p.traits.Contains("Cut-Throat"))
+            if (p.traits.Contains("Aggressive"))
             {
                 deceitAbilityModifier += 20;
             }
-            if (p.traits.Contains("Virtuous"))
+            if (p.traits.Contains("Passive"))
             {
                 deceitAbilityModifier -= 20;
             }
-            if (p.traits.Contains("Aggressive"))
+            if (p.traits.Contains("Audacious"))
             {
                 deceitAbilityModifier += 10;
             }
-            if (p.traits.Contains("Passive"))
+            if (p.traits.Contains("Timid"))
             {
                 deceitAbilityModifier -= 10;
             }

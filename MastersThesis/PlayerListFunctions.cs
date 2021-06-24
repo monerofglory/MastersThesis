@@ -11,10 +11,16 @@ namespace MastersThesis
         {
             Random rd = new Random(); //Initialise random number gen
             List<string> new_trait = new List<string>();
-            string[] traits = { "Trusting", "Untrusting", "Suspicious", "Unsuspicious", "Aggressive", "Passive", "Calculating", "Virtuous"}; //Predefined traits
+            //Traits seperated into seperate lists to avoid mutex pairs (e.g trusting AND untrusting)
+            string[,] traits = 
+            {{ "Trusting", "Untrusting", "Suspicious", "Unsuspicious" },
+            { "Aggressive", "Passive", "Calculating", "Fair" }, //Predefined traits
+            { "Aggressive", "Passive", "Audacious", "Timid" } };
             for (int i = 0; i < rd.Next(1, 3); i++) //Add a number of traits from list
             {
-                string new_trait_to_add = traits[rd.Next(0, traits.Length)];
+                int dim1_random = rd.Next(0, traits.GetLength(0));
+                int dim2_random = rd.Next(traits.GetLength(dim1_random));
+                string new_trait_to_add = traits[dim1_random, dim2_random];
                 if (!new_trait.Contains(new_trait_to_add)) //Check if trait is already added.
                 {
                     new_trait.Add(new_trait_to_add);
