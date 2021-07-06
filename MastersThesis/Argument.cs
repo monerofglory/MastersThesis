@@ -4,6 +4,7 @@ using System.Text;
 
 namespace MastersThesis
 {
+    //Class for player arguments
     class Argument
     {
         public string statement;
