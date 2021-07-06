@@ -49,6 +49,8 @@ namespace MastersThesis
         {
             double highest = -9999999;
             int highest_player = -1;
+            Random rd = new Random();
+
             foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
                 
