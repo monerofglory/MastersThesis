@@ -7,7 +7,7 @@ namespace MastersThesis
     class PlayerListFunctions {
 
         private static Random rd = new Random();
-        public static List<string> getNewTrait()
+        /*public static List<string> getNewTrait()
         {
             List<string> new_trait = new List<string>();
             //Traits seperated into seperate lists to avoid mutex pairs (e.g trusting AND untrusting)
@@ -26,6 +26,38 @@ namespace MastersThesis
                 }
             }
             return new_trait; //Return list
+        }*/
+
+        public static List<string> getNewTraits(int amt)
+        {
+            List<string> new_traits = new List<string>();
+            List<List<string>> traitsList = new List<List<string>>();
+            List<string> trust_traits = new List<string>(){"Trusting", "Untrusting", "Suspicious", "Unsuspicious"};
+            List<string> deceit_traits = new List<string>() { "Deceitful", "Honest", "Calculating", "Fair" };
+            List<string> deceitAbility_traits = new List<string>() { "Aggressive", "Passive", "Audacious", "Timid" };
+            traitsList.Add(trust_traits);
+            traitsList.Add(deceit_traits);
+            traitsList.Add(deceitAbility_traits);
+            while (new_traits.Count < amt)
+            {
+                //Get new trait
+                int traitListToQuery = rd.Next(0, traitsList.Count);
+                //Check if a trait from that list already exists
+                bool found = false;
+                foreach (string t in new_traits)
+                {
+                    if (traitsList[traitListToQuery].Contains(t))
+                    {
+                        found = true;
+                    }
+                }
+                //If not, add it
+                if (!found)
+                {
+                    new_traits.Add(traitsList[traitListToQuery][rd.Next(0, traitsList[traitListToQuery].Count)]);
+                }
+            }
+            return new_traits;
         }
 
         public static List<string> getNewStrategy()

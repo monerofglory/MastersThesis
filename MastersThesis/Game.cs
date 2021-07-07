@@ -7,8 +7,10 @@ namespace MastersThesis
     class Game
     {
         public static List<Player> players = new List<Player>();
+        private static Random rd = new Random();
         static void Main(string[] args)
         {
+            
             for (int j = 0; j < 1; j++)
             {
                 players.Clear();
@@ -16,7 +18,7 @@ namespace MastersThesis
                 int num = 4; //Number of players
                 for (int i = 0; i < num; i++)
                 {
-                    players.Add(new Player(i, PlayerListFunctions.getNewTrait(), PlayerListFunctions.getNewStrategy()));
+                    players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 4)), PlayerListFunctions.getNewStrategy()));
                 }
                 for (int i = 0; i < num; i++)
                 {
@@ -47,7 +49,7 @@ namespace MastersThesis
                 {
                     p.Decay();
                 }
-                Debug.Log(players);
+                //Debug.Log(players);
 
 
 
