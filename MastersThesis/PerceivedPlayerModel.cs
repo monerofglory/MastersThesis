@@ -22,10 +22,15 @@ namespace MastersThesis
         }
         public double GetThreat(List<Player> players)
         {
-            double threat = perceivedDeceitfulness + perceivedDeceitAbility - (perceivedTrustfullness * 2) + PlayerListFunctions.GetPlayerByID(playerID, players).health;
+            double threat = perceivedDeceitfulness + perceivedDeceitAbility + PlayerListFunctions.GetPlayerByID(playerID, players).health;
             return threat;
         }
 
+        public double GetTrust(List<Player> players)
+        {
+            double trust = perceivedTrustfullness - PlayerListFunctions.GetPlayerByID(playerID, players).health;
+            return trust;
+        }
         public void AddDeceitfulness(PlayerModel pm, double amt)
         {
             perceivedDeceitfulness += amt * (1 - (pm.trust / 100));

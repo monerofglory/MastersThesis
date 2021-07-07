@@ -82,14 +82,23 @@ namespace MastersThesis
                 if (p.health > 0) //Check the player isnt out
                 {
                     Random rd = new Random();
+                    bool intentionToDeceive = p.GetIntention();
                     //Get the target ID with the highest perceived threat
-                    int targetID = p.GetHighestThreat(players);
+                    int targetID;
+                    if (intentionToDeceive)
+                    {
+                        targetID = p.GetHighestThreat(players);
+                    }
+                    else
+                    {
+                        targetID = p.GetHighestTrust(players);
+                    }
                     //Fetch that player object as target
                     Player target = PlayerListFunctions.GetPlayerByID(targetID, players);
                     //Get the card the player is gonna say
                     int card = p.GetCard();
                     //Get the statement about the card (truth or lie)
-                    string statement = p.GenerateStatement(card);
+                    string statement = p.GenerateStatement(card, intentionToDeceive);
                     //Console.WriteLine("--------");
                     //Console.WriteLine("Player Turn: " + p.playerID);
                     //Console.WriteLine("Targeting " + target.playerID + " with card " + card + " , saying " + statement);

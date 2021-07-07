@@ -44,13 +44,45 @@ namespace MastersThesis
             return null;
         }
 
+        public bool GetIntention()
+        {
+            Random rd = new Random();
+            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness));
+            if (intention <= playerModel.trust)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public int GetHighestTrust(List<Player> players)
+        {
+            double highest = -9999999;
+            int highest_player = -1;
+            foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
+            {
+
+                if (PlayerListFunctions.GetPlayerByID(ppm.playerID, players).health >= 1)
+                {
+                    double trust = ppm.GetTrust(players);
+                    if (trust> highest)
+                    {
+                        highest = trust;
+                        highest_player = ppm.playerID;
+                    }
+                }
+            }
+            return highest_player;
+        }
+
         //Get the player with the highest threat that is still alive.
         public int GetHighestThreat(List<Player> players)
         {
             double highest = -9999999;
             int highest_player = -1;
-            Random rd = new Random();
-
             foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
                 
@@ -75,11 +107,11 @@ namespace MastersThesis
         }
 
         //Generate a statement based on how deceitful you are, and by how much.
-        public string GenerateStatement(int card)
+        public string GenerateStatement(int card, bool intentToDeceive)
         {
             int new_card = card;
             Random rd = new Random();
-            if (rd.Next(0, 100) <= playerModel.deceitfulness) //Check how deceitful this player is
+            if (intentToDeceive) //Check how deceitful this player is
             {
                 //I am going to deceive
                 //Find out by HOW MUCH by
