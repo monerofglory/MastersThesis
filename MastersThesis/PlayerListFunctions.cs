@@ -4,12 +4,11 @@ using System.Text;
 
 namespace MastersThesis
 {
-    class PlayerListFunctions { 
-    
+    class PlayerListFunctions {
 
+        private static Random rd = new Random();
         public static List<string> getNewTrait()
         {
-            Random rd = new Random(); //Initialise random number gen
             List<string> new_trait = new List<string>();
             //Traits seperated into seperate lists to avoid mutex pairs (e.g trusting AND untrusting)
             string[,] traits = 
@@ -31,7 +30,6 @@ namespace MastersThesis
 
         public static List<string> getNewStrategy()
         {
-            Random rd = new Random(); //Initialise random number gen
             List<string> new_strategies = new List<string>();
             string[] strategies = { "Tit-For-Tat", "Attack Most Health", "Attack Lowest Health" }; //Predefined strategies
             for (int i = 0; i < rd.Next(1, 3); i++) //Add a number of strategies from list

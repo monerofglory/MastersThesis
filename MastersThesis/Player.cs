@@ -12,6 +12,9 @@ namespace MastersThesis
         public List<PerceivedPlayerModel> perceivedPlayerModels = new List<PerceivedPlayerModel>();
         public List<String> traits = new List<string>();
         public List<String> strategies = new List<string>();
+
+        private Random rd = new Random();
+
         public Player(int id, List<string> new_traits, List<string> new_strategies)
         {
             health = 100;
@@ -46,7 +49,6 @@ namespace MastersThesis
 
         public bool GetIntention()
         {
-            Random rd = new Random();
             int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness));
             if (intention <= playerModel.trust)
             {
@@ -102,7 +104,6 @@ namespace MastersThesis
         //Get the card that you're going to say.
         public int GetCard()
         {
-            Random rd = new Random();
             return rd.Next(0, 9);
         }
 
@@ -110,7 +111,6 @@ namespace MastersThesis
         public string GenerateStatement(int card, bool intentToDeceive)
         {
             int new_card = card;
-            Random rd = new Random();
             if (intentToDeceive) //Check how deceitful this player is
             {
                 //I am going to deceive
@@ -133,17 +133,13 @@ namespace MastersThesis
         //Guess the card based on the statement made by the opponent, along with their perceived model.
         public int GuessCard(string statement, Player p)
         {
-            Random rd = new Random();
             //Fetch perceivedDeceit of opponent
             PerceivedPlayerModel ppm = GetPerceivedPlayerModel(p);
-            double pD = ppm.perceivedDeceitfulness;
-            if (rd.Next(0, 100) <= pD)
+            if (rd.Next(0, 100) <= ppm.perceivedDeceitfulness)
             {
-                //Console.WriteLine("Target believes they are being deceived");
                 //I believe them to be deceiving me
                 //bound is how much they are deceiving me by
-                double pDA = ppm.perceivedDeceitAbility;
-                int bound = Convert.ToInt32(Math.Round(pDA / 10));
+                int bound = Convert.ToInt32(Math.Round(ppm.perceivedDeceitAbility / 10));
                 int guessed_card = Convert.ToInt32(statement);
                 while (guessed_card == Convert.ToInt32(statement)) //If deceived, dont guess card made in statement.
                 {
@@ -154,14 +150,12 @@ namespace MastersThesis
                 return guessed_card;
             }
             //I think they are telling the truth
-            //Console.WriteLine("Target believes they are telling the truth");
             return Convert.ToInt32(statement);
         }
 
         public Argument GetArgument(Player p, List<Player> players)
         {
             Player target = PlayerListFunctions.GetPlayerByID(p.GetHighestThreat(players), players);
-            Random rd = new Random();
             //Get statement
             string[] statements = { "Deceitful", "NotDeceitful", "Aggressive", "NotAggressive", "Trustful", "NotTrustful" };
             Argument a = new Argument(statements[rd.Next(statements.Length)], p, target);
@@ -183,7 +177,6 @@ namespace MastersThesis
                 //Decay for perceivedDeceitAbility
                 if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility-= 0.1 ; }
                 else if (ppm.perceivedDeceitAbility < 50) { ppm.perceivedDeceitAbility+=0.1; }
-
             }
         }
     }
