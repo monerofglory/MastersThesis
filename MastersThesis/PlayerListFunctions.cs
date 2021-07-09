@@ -6,38 +6,21 @@ namespace MastersThesis
 {
     class PlayerListFunctions {
 
+        public static List<List<string>> traitsList = new List<List<string>>();
+        static List<string> trust_traits = new List<string>() { "Trusting", "Untrusting", "Suspicious", "Unsuspicious" };
+        static List<string> deceit_traits = new List<string>() { "Deceitful", "Honest", "Calculating", "Fair" };
+        static List<string> deceitAbility_traits = new List<string>() { "Aggressive", "Passive", "Audacious", "Timid" };
         private static Random rd = new Random();
-        /*public static List<string> getNewTrait()
-        {
-            List<string> new_trait = new List<string>();
-            //Traits seperated into seperate lists to avoid mutex pairs (e.g trusting AND untrusting)
-            string[,] traits = 
-            {{ "Trusting", "Untrusting", "Suspicious", "Unsuspicious" },
-            { "Deceitful", "Honest", "Calculating", "Fair" }, //Predefined traits
-            { "Aggressive", "Passive", "Audacious", "Timid" } };
-            for (int i = 0; i < rd.Next(1, 3); i++) //Add a number of traits from list
-            {
-                int dim1_random = rd.Next(0, traits.GetLength(0));
-                int dim2_random = rd.Next(traits.GetLength(1));
-                string new_trait_to_add = traits[dim1_random, dim2_random];
-                if (!new_trait.Contains(new_trait_to_add)) //Check if trait is already added.
-                {
-                    new_trait.Add(new_trait_to_add);
-                }
-            }
-            return new_trait; //Return list
-        }*/
 
         public static List<string> getNewTraits(int amt)
         {
             List<string> new_traits = new List<string>();
-            List<List<string>> traitsList = new List<List<string>>();
-            List<string> trust_traits = new List<string>(){"Trusting", "Untrusting", "Suspicious", "Unsuspicious"};
-            List<string> deceit_traits = new List<string>() { "Deceitful", "Honest", "Calculating", "Fair" };
-            List<string> deceitAbility_traits = new List<string>() { "Aggressive", "Passive", "Audacious", "Timid" };
-            traitsList.Add(trust_traits);
-            traitsList.Add(deceit_traits);
-            traitsList.Add(deceitAbility_traits);
+            if (traitsList.Count == 0)
+            {
+                traitsList.Add(trust_traits);
+                traitsList.Add(deceit_traits);
+                traitsList.Add(deceitAbility_traits);
+            }
             while (new_traits.Count < amt)
             {
                 //Get new trait
@@ -119,6 +102,19 @@ namespace MastersThesis
             return null;
         }
 
+        public static void RemoveDeadPlayers(List<Player> players)
+        {
+            RemovePerceivedModels(players);
+            foreach(Player p in players)
+            {
+                if (p.health <= 0 )
+                {
+                    Game.deadPlayers.Add(p);
+                }
+            }
+            //Removing players from the players list that are out
+            players.RemoveAll(item => item.health < 1);
+        }
         public static void RemovePerceivedModels(List<Player> players)
         {
             foreach(Player p in players)

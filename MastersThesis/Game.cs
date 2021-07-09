@@ -7,6 +7,7 @@ namespace MastersThesis
     class Game
     {
         public static List<Player> players = new List<Player>();
+        public static List<Player> deadPlayers = new List<Player>();
         private static Random rd = new Random();
         static void Main(string[] args)
         {
@@ -15,7 +16,7 @@ namespace MastersThesis
             {
                 players.Clear();
                 //Initialising players
-                int num = 4; //Number of players
+                int num = 10000; //Number of players
                 for (int i = 0; i < num; i++)
                 {
                     players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 4)), PlayerListFunctions.getNewStrategy()));
@@ -36,9 +37,8 @@ namespace MastersThesis
                 //GAMEPLAY PHASE
                 GameplayPhase();
                 //Removing perceivedModels that are out
-                PlayerListFunctions.RemovePerceivedModels(players);
-                //Removing players from the players list that are out
-                players.RemoveAll(item => item.health < 1);
+                //PlayerListFunctions.RemovePerceivedModels(players);
+                PlayerListFunctions.RemoveDeadPlayers(players);
                 //DELIBERATION PHASE
                 if (players.Count > 1)
                 {
@@ -50,7 +50,7 @@ namespace MastersThesis
                     p.Decay();
                 }
                 //Debug.Log(players);
-
+                
 
 
             }
@@ -63,6 +63,8 @@ namespace MastersThesis
             Console.WriteLine(players[0].playerModel.trust);
             Console.WriteLine(players[0].playerModel.deceitfulness);
             Console.WriteLine(players[0].playerModel.deceitAbility);
+            deadPlayers.Add(players[0]);
+            Results.DisplayResults(deadPlayers);
         }
 
         static void DeliberationPhase()
@@ -84,6 +86,7 @@ namespace MastersThesis
                 if (p.health > 0) //Check the player isnt out
                 {
                     Random rd = new Random();
+                    int score = players.Count;
                     bool intentionToDeceive = p.GetIntention();
                     //Get the target ID with the highest perceived threat
                     int targetID;
@@ -101,13 +104,8 @@ namespace MastersThesis
                     int card = p.GetCard();
                     //Get the statement about the card (truth or lie)
                     string statement = p.GenerateStatement(card, intentionToDeceive);
-                    //Console.WriteLine("--------");
-                    //Console.WriteLine("Player Turn: " + p.playerID);
-                    //Console.WriteLine("Targeting " + target.playerID + " with card " + card + " , saying " + statement);
                     //Target makes guess about card
                     int guess = target.GuessCard(statement, p);
-                    //Console.WriteLine("Target guesses: " + guess);
-                    //Console.ReadLine();
                     if (guess == card) //If correct, both gain 1 health and add 1 trust to the model.
                     {
                         p.health++;
@@ -119,6 +117,12 @@ namespace MastersThesis
                         //Lose health based on difference
                         int diff = Math.Abs(card - guess);
                         target.health -= diff;
+                        //If out of game, assign score
+                        if (target.health <= 0)
+                        {
+                            target.score = score;
+                            score--;
+                        }
                         //If the opponent DID NOT lie
                         if (guess == Convert.ToInt32(statement))
                         {
@@ -144,9 +148,6 @@ namespace MastersThesis
                             }
                         }
                     }
-                    
-                    //Console.WriteLine("Player " + p.playerID + " health = " + p.health);
-                    //Console.WriteLine("PLayer " + target.playerID + " health = " + target.health);
                 }
             }
         }
