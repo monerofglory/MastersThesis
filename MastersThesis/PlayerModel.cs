@@ -6,11 +6,17 @@ namespace MastersThesis
 {
     class PlayerModel
     {
+        //PlayerModel Modifier Values
+        private int largeMod = 30;
+        private int smallmod = 15;
+        private int negLargeMod = -30;
+        private int negSmallMod = -15;
+
         //Baseline variables are 50
         public double deceitfulness = 50;
         public double deceitAbility = 50;
         public double trust = 50;
-        
+
         public PlayerModel(Player p)
         {
             Random rd = new Random();
@@ -30,19 +36,19 @@ namespace MastersThesis
             double trustModifier = 0;
             if (p.traits.Contains("Trusting"))
             {
-                trustModifier += 20;
+                trustModifier += largeMod;
             }
             if (p.traits.Contains("Untrusting"))
             {
-                trustModifier -= 20;
+                trustModifier -= negLargeMod;
             }
             if (p.traits.Contains("Unsuspicious"))
             {
-                trustModifier += 10;
+                trustModifier += smallmod;
             }
             if (p.traits.Contains("Suspicious"))
             {
-                trustModifier -= 10;
+                trustModifier -= negSmallMod;
             }
             return trustModifier;
         }
@@ -53,19 +59,19 @@ namespace MastersThesis
             double deceitfulnessModifier = 0;
             if (p.traits.Contains("Deceitful"))
             {
-                deceitfulnessModifier += 20;
+                deceitfulnessModifier += largeMod;
             }
             if (p.traits.Contains("Honest"))
             {
-                deceitfulnessModifier -= 20;
+                deceitfulnessModifier -= negLargeMod;
             }
             if (p.traits.Contains("Calculating"))
             {
-                deceitfulnessModifier += 10;
+                deceitfulnessModifier += smallmod;
             }
             if (p.traits.Contains("Fair"))
             {
-                deceitfulnessModifier -= 10;
+                deceitfulnessModifier -= negSmallMod;
             }
             return deceitfulnessModifier;
         }
@@ -75,19 +81,19 @@ namespace MastersThesis
             double deceitAbilityModifier = 0;
             if (p.traits.Contains("Aggressive"))
             {
-                deceitAbilityModifier += 20;
+                deceitAbilityModifier += largeMod;
             }
             if (p.traits.Contains("Passive"))
             {
-                deceitAbilityModifier -= 20;
+                deceitAbilityModifier -= negLargeMod;
             }
             if (p.traits.Contains("Audacious"))
             {
-                deceitAbilityModifier += 10;
+                deceitAbilityModifier += smallmod;
             }
             if (p.traits.Contains("Timid"))
             {
-                deceitAbilityModifier -= 10;
+                deceitAbilityModifier -= negSmallMod;
             }
             return deceitAbilityModifier;
         }

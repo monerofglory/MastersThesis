@@ -16,7 +16,7 @@ namespace MastersThesis
             {
                 players.Clear();
                 //Initialising players
-                int num = 10000; //Number of players
+                int num = 100; //Number of players
                 for (int i = 0; i < num; i++)
                 {
                     players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 4)), PlayerListFunctions.getNewStrategy()));
