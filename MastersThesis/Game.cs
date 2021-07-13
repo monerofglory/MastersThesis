@@ -9,6 +9,9 @@ namespace MastersThesis
         public static List<Player> players = new List<Player>();
         public static List<Player> deadPlayers = new List<Player>();
         private static Random rd = new Random();
+        //Game details
+        public static int gameLength = 0;
+        public static int numberOfPlayers = 100;
         static void Main(string[] args)
         {
             
@@ -16,12 +19,11 @@ namespace MastersThesis
             {
                 players.Clear();
                 //Initialising players
-                int num = 100; //Number of players
-                for (int i = 0; i < num; i++)
+                for (int i = 0; i < numberOfPlayers; i++)
                 {
                     players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 4)), PlayerListFunctions.getNewStrategy()));
                 }
-                for (int i = 0; i < num; i++)
+                for (int i = 0; i < numberOfPlayers; i++)
                 {
                     players[i].AddPerceivedPlayerModels(players);
                     
@@ -34,6 +36,7 @@ namespace MastersThesis
         {
             while (players.Count > 1) //Whilst players are still in the game
             {
+                gameLength++;
                 //GAMEPLAY PHASE
                 GameplayPhase();
                 //Removing perceivedModels that are out
@@ -63,8 +66,11 @@ namespace MastersThesis
             Console.WriteLine(players[0].playerModel.trust);
             Console.WriteLine(players[0].playerModel.deceitfulness);
             Console.WriteLine(players[0].playerModel.deceitAbility);
+            Console.WriteLine("------");
             deadPlayers.Add(players[0]);
             Results.DisplayResults(deadPlayers);
+            Console.WriteLine("------");
+            Console.WriteLine("Length of Game: " + gameLength + " rounds");
         }
 
         static void DeliberationPhase()
@@ -87,7 +93,7 @@ namespace MastersThesis
                 {
                     Random rd = new Random();
                     int score = players.Count;
-                    bool intentionToDeceive = p.GetIntention();
+                    bool intentionToDeceive = p.GetIntention(numberOfPlayers / players.Count);
                     //Get the target ID with the highest perceived threat
                     int targetID;
                     if (intentionToDeceive)
