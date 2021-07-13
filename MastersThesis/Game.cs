@@ -11,7 +11,7 @@ namespace MastersThesis
         private static Random rd = new Random();
         //Game details
         public static int gameLength = 0;
-        public static int numberOfPlayers = 100;
+        public static int numberOfPlayers = 500;
         static void Main(string[] args)
         {
             
@@ -42,6 +42,7 @@ namespace MastersThesis
                 //Removing perceivedModels that are out
                 //PlayerListFunctions.RemovePerceivedModels(players);
                 PlayerListFunctions.RemoveDeadPlayers(players);
+                Console.WriteLine("Remaining players: " + players.Count);
                 //DELIBERATION PHASE
                 if (players.Count > 1)
                 {
@@ -93,7 +94,7 @@ namespace MastersThesis
                 {
                     Random rd = new Random();
                     int score = players.Count;
-                    bool intentionToDeceive = p.GetIntention(numberOfPlayers / players.Count);
+                    bool intentionToDeceive = p.GetIntention(players.Count);
                     //Get the target ID with the highest perceived threat
                     int targetID;
                     if (intentionToDeceive)

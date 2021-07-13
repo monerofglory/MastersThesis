@@ -48,10 +48,10 @@ namespace MastersThesis
             return null;
         }
 
-        public bool GetIntention(double remainingPlayers)
+        public bool GetIntention(int remainingPlayers)
         {
-
-            int intention = rd.Next(0, Convert.ToInt32((playerModel.trust * remainingPlayers) + playerModel.deceitfulness));
+            if (remainingPlayers == 2) { return true; }
+            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness));
             if (intention <= playerModel.trust)
             {
                 return false;
