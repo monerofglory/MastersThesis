@@ -8,15 +8,18 @@ namespace MastersThesis
     {
         public static List<Player> players = new List<Player>();
         public static List<Player> deadPlayers = new List<Player>();
+        public static List<Player> allDeadPlayers = new List<Player>();
         private static Random rd = new Random();
         //Game details
         public static int gameLength = 0;
-        public static int numberOfPlayers = 500;
+        public static int numberOfPlayers = 100;
         static void Main(string[] args)
         {
-            
-            for (int j = 0; j < 1; j++)
+            for (int j = 0; j < 50; j++)
             {
+                gameLength = 0;
+                allDeadPlayers.AddRange(deadPlayers);
+                deadPlayers.Clear();
                 players.Clear();
                 //Initialising players
                 for (int i = 0; i < numberOfPlayers; i++)
@@ -30,6 +33,8 @@ namespace MastersThesis
                 }
                 GameLoop();
             }
+            Console.WriteLine("ALL GAMES RESULTS");
+            Results.DisplayResults(allDeadPlayers);
         }
 
         static void GameLoop()
@@ -42,7 +47,6 @@ namespace MastersThesis
                 //Removing perceivedModels that are out
                 //PlayerListFunctions.RemovePerceivedModels(players);
                 PlayerListFunctions.RemoveDeadPlayers(players);
-                Console.WriteLine("Remaining players: " + players.Count);
                 //DELIBERATION PHASE
                 if (players.Count > 1)
                 {

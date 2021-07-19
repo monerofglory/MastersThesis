@@ -18,7 +18,7 @@ namespace MastersThesis
 
         public Player(int id, List<string> new_traits, List<string> new_strategies)
         {
-            health = 100;
+            health = 30;
             playerID = id;
             traits.AddRange(new_traits);
             strategies.AddRange(new_strategies);
