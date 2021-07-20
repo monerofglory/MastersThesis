@@ -12,10 +12,10 @@ namespace MastersThesis
         private static Random rd = new Random();
         //Game details
         public static int gameLength = 0;
-        public static int numberOfPlayers = 100;
+        public static int numberOfPlayers = 50;
         static void Main(string[] args)
         {
-            for (int j = 0; j < 50; j++)
+            for (int j = 0; j < 100; j++)
             {
                 gameLength = 0;
                 allDeadPlayers.AddRange(deadPlayers);

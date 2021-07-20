@@ -81,14 +81,14 @@ namespace MastersThesis
                     {
                         rr.score += p.score;
                         rr.amount++;
-                        rr.average = rr.score / rr.amount;
+                        rr.average = (double)rr.score / (double)rr.amount;
                     }
                 }
             }
             List<ResultRecord> rrL = resultsList.OrderBy(o => o.average).ToList();
             foreach(ResultRecord rr in rrL)
             {
-                Console.WriteLine(rr.trait + " with average of: " + rr.average + " (" + rr.score + "/" + rr.amount + ")");
+                Console.WriteLine(rr.trait + " with average of: " + rr.average.ToString("F") + " (" + rr.score + "/" + rr.amount + ")");
             }
         }
     }
