@@ -16,6 +16,7 @@ namespace MastersThesis
 
         private Random rd = new Random();
 
+        //Player constructor
         public Player(int id, List<string> new_traits, List<string> new_strategies)
         {
             health = 10;
@@ -25,17 +26,19 @@ namespace MastersThesis
             playerModel = new PlayerModel(this);
         }
 
+        //Add perceived model of each player
         public void AddPerceivedPlayerModels(List<Player> players)
         {
             foreach(Player p in players)
             {
-                if (p != this)
+                if (p != this) //Make sure a player doesnt add themselves
                 {
                     perceivedPlayerModels.Add(new PerceivedPlayerModel(p.playerID));
                 }
             }
         }
         
+        //Fetch a perceived player model of a particular player P
         public PerceivedPlayerModel GetPerceivedPlayerModel(Player p)
         {
             foreach(PerceivedPlayerModel ppm in perceivedPlayerModels)
@@ -48,20 +51,23 @@ namespace MastersThesis
             return null;
         }
 
+        //Get the intention
+        //Intention is whether a player is going to deceive or act truthfully.
         public bool GetIntention(int remainingPlayers)
         {
-            if (remainingPlayers == 2) { return true; }
-            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness));
+            if (remainingPlayers == 2) { return true; } //Always deceive if two players remain.
+            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness)); 
             if (intention <= playerModel.trust)
             {
-                return false;
+                return false; //Do NOT deceive
             }
             else
             {
-                return true;
+                return true; //Deceive
             }
         }
 
+        //Get the player out of all perceived models whom you trust the most
         public int GetHighestTrust(List<Player> players)
         {
             double highest = -9999999;
@@ -69,9 +75,9 @@ namespace MastersThesis
             foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
 
-                if (PlayerListFunctions.GetPlayerByID(ppm.playerID, players).health >= 1)
+                if (PlayerListFunctions.GetPlayerByID(ppm.playerID, players).health >= 1) //Make sure the player is still alive.
                 {
-                    double trust = ppm.GetTrust(players);
+                    double trust = ppm.GetTrust(players); //Get the trust calculation
                     if (trust> highest)
                     {
                         highest = trust;
@@ -79,7 +85,7 @@ namespace MastersThesis
                     }
                 }
             }
-            return highest_player;
+            return highest_player; //Return highest trust.
         }
 
         //Get the player with the highest threat that is still alive.
@@ -89,7 +95,6 @@ namespace MastersThesis
             int highest_player = -1;
             foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
-                
                 if (PlayerListFunctions.GetPlayerByID(ppm.playerID, players).health >= 1)
                 {
                     double threat = ppm.GetThreat(players);
@@ -157,10 +162,19 @@ namespace MastersThesis
 
         public Argument GetArgument(Player p, List<Player> players)
         {
+            bool intention = p.GetIntention(players.Count);
             Player target = PlayerListFunctions.GetPlayerByID(p.GetHighestThreat(players), players);
             //Get statement
-            string[] statements = { "Deceitful", "NotDeceitful", "Aggressive", "NotAggressive", "Trustful", "NotTrustful" };
-            Argument a = new Argument(statements[rd.Next(statements.Length)], p, target);
+            string[] good_statements = { "NotDeceitful", "NotAggressive", "Trustful"};
+            string[] bad_statements = { "Deceitful", "Aggressive", "NotTrustful" };
+            Argument a;
+            if (intention)
+            {
+                a = new Argument(good_statements[rd.Next(good_statements.Length)], p, target);
+            }
+            else {
+                a = new Argument(bad_statements[rd.Next(bad_statements.Length)], p, target);
+            }
             return a;
         }
 

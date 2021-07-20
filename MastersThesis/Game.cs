@@ -15,8 +15,9 @@ namespace MastersThesis
         public static int numberOfPlayers = 50;
         static void Main(string[] args)
         {
-            for (int j = 0; j < 100; j++)
+            for (int j = 0; j < 100; j++) //Loop for running a new game
             {
+                //Clear variables for new game start
                 gameLength = 0;
                 allDeadPlayers.AddRange(deadPlayers);
                 deadPlayers.Clear();
@@ -33,6 +34,7 @@ namespace MastersThesis
                 }
                 GameLoop();
             }
+            //Outputting results of ALL games that have happened.
             Console.WriteLine("ALL GAMES RESULTS");
             Results.DisplayResults(allDeadPlayers);
         }
@@ -45,7 +47,6 @@ namespace MastersThesis
                 //GAMEPLAY PHASE
                 GameplayPhase();
                 //Removing perceivedModels that are out
-                //PlayerListFunctions.RemovePerceivedModels(players);
                 PlayerListFunctions.RemoveDeadPlayers(players);
                 //DELIBERATION PHASE
                 if (players.Count > 1)
@@ -57,27 +58,14 @@ namespace MastersThesis
                 {
                     p.Decay();
                 }
-                //Debug.Log(players);
-                
-
-
             }
-            Console.WriteLine("Player " + players[0].playerID + " wins!");
-            foreach(string t in players[0].traits)
-            {
-                Console.WriteLine(t);
-            }
-            Console.WriteLine("Model:");
-            Console.WriteLine(players[0].playerModel.trust);
-            Console.WriteLine(players[0].playerModel.deceitfulness);
-            Console.WriteLine(players[0].playerModel.deceitAbility);
-            Console.WriteLine("------");
+            //Outputting results of the game.
             deadPlayers.Add(players[0]);
             Results.DisplayResults(deadPlayers);
-            Console.WriteLine("------");
             Console.WriteLine("Length of Game: " + gameLength + " rounds");
         }
 
+        //Deliberation phase where arguments are created and resolved.
         static void DeliberationPhase()
         {
             List<Argument> arguments = new List<Argument>();
