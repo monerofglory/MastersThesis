@@ -12,12 +12,12 @@ namespace MastersThesis
         private static Random rd = new Random();
         //Game details
         public static int gameLength = 0;
-        public static int numberOfPlayers = 40;
+        public static int numberOfPlayers = 200;
 
         public static int consecNoChanges = 0;
         static void Main(string[] args)
         {
-            for (int j = 0; j < 10; j++) //Loop for running a new game
+            for (int j = 0; j < 100; j++) //Loop for running a new game
             {
                 //Clear variables for new game start
                 gameLength = 0;
@@ -147,6 +147,7 @@ namespace MastersThesis
                         //If the opponent DID NOT lie
                         if (guess == Convert.ToInt32(statement))
                         {
+                            target.GetPerceivedPlayerModel(p).goodTimes++;
                             target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, -4);
                             foreach (Player p2 in players)
                             {
@@ -159,6 +160,7 @@ namespace MastersThesis
                         }
                         else //If opponent DID lie
                         {
+                            target.GetPerceivedPlayerModel(p).badTimes++;
                             target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, 4);
                             target.GetPerceivedPlayerModel(p).AddDeceitAbility(target.playerModel, diff);
                             foreach (Player p2 in players)

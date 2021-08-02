@@ -10,6 +10,9 @@ namespace MastersThesis
         public double perceivedTrustfullness = 50;
         public double perceivedDeceitfulness = 50;
         public double perceivedDeceitAbility = 50;
+        //Number of times this player has acted deceitfully or kindly towards you.
+        public int goodTimes = 0;
+        public int badTimes = 0;
 
         public PerceivedPlayerModel(int id)
         {
@@ -22,13 +25,13 @@ namespace MastersThesis
         }
         public double GetThreat(List<Player> players)
         {
-            double threat = perceivedDeceitfulness + perceivedDeceitAbility + PlayerListFunctions.GetPlayerByID(playerID, players).health;
+            double threat = perceivedDeceitfulness + perceivedDeceitAbility + PlayerListFunctions.GetPlayerByID(playerID, players).health + (badTimes - goodTimes);
             return threat;
         }
 
         public double GetTrust(List<Player> players)
         {
-            double trust = perceivedTrustfullness - PlayerListFunctions.GetPlayerByID(playerID, players).health;
+            double trust = perceivedTrustfullness - PlayerListFunctions.GetPlayerByID(playerID, players).health + (goodTimes - badTimes);
             return trust;
         }
         public void AddDeceitfulness(PlayerModel pm, double amt)
