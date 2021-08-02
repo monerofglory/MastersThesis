@@ -92,8 +92,11 @@ namespace MastersThesis
         }
         static void GameplayPhase()
         {
-            foreach (Player p in players) //Loop through each player for their turn
+            int startingPlayer = rd.Next(0, players.Count);
+            int playersDone = 0;
+            while (playersDone < players.Count)
             {
+                Player p = players[startingPlayer];
                 if (p.health > 0) //Check the player isnt out
                 {
                     Random rd = new Random();
@@ -161,6 +164,16 @@ namespace MastersThesis
                         }
                     }
                 }
+                if (startingPlayer == players.Count - 1)
+                {
+                    startingPlayer = 0;
+                }
+                else
+                {
+                    startingPlayer++;
+                }
+                playersDone++;
+                
             }
         }
     }
