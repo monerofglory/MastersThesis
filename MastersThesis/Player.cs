@@ -41,15 +41,6 @@ namespace MastersThesis
         //Fetch a perceived player model of a particular player P
         public PerceivedPlayerModel GetPerceivedPlayerModel(Player p)
         {
-            /*foreach(PerceivedPlayerModel ppm in perceivedPlayerModels)
-            {
-                if (p.playerID == ppm.playerID)
-                {
-                    return ppm;
-                }
-            }
-            return null;
-            */
             return perceivedPlayerModels.Find(o => o.playerID == p.playerID);
         }
 

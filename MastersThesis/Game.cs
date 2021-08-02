@@ -12,12 +12,12 @@ namespace MastersThesis
         private static Random rd = new Random();
         //Game details
         public static int gameLength = 0;
-        public static int numberOfPlayers = 200;
+        public static int numberOfPlayers = 50;
 
         public static int consecNoChanges = 0;
         static void Main(string[] args)
         {
-            for (int j = 0; j < 100; j++) //Loop for running a new game
+            for (int j = 0; j < 10; j++) //Loop for running a new game
             {
                 //Clear variables for new game start
                 gameLength = 0;
