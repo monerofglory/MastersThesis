@@ -19,7 +19,7 @@ namespace MastersThesis
         //Player constructor
         public Player(int id, List<string> new_traits, List<string> new_strategies)
         {
-            health = 10;
+            health = 20;
             playerID = id;
             traits.AddRange(new_traits);
             strategies.AddRange(new_strategies);

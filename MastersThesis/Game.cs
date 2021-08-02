@@ -61,8 +61,8 @@ namespace MastersThesis
             }
             //Outputting results of the game.
             deadPlayers.Add(players[0]);
-            Results.DisplayResults(deadPlayers);
-            Console.WriteLine("Length of Game: " + gameLength + " rounds");
+            //Results.DisplayResults(deadPlayers);
+            //Console.WriteLine("Length of Game: " + gameLength + " rounds");
         }
 
         //Deliberation phase where arguments are created and resolved.
@@ -137,12 +137,13 @@ namespace MastersThesis
                         }
                         else //If opponent DID lie
                         {
-                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, diff * -1);
+                            target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, 4);
+                            target.GetPerceivedPlayerModel(p).AddDeceitAbility(target.playerModel, diff);
                             foreach (Player p2 in players)
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, -1);
+                                    p2.GetPerceivedPlayerModel(p).AddDeceitfulness(p2.playerModel, 2);
                                 }
                             }
                         }
