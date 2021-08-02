@@ -142,7 +142,9 @@ namespace MastersThesis
         {
             //Fetch perceivedDeceit of opponent
             PerceivedPlayerModel ppm = GetPerceivedPlayerModel(p);
-            if (rd.Next(0, 100) <= ppm.perceivedDeceitfulness)
+            double upperBound = ppm.perceivedDeceitfulness + p.playerModel.trust;
+            double lowerBound = ppm.perceivedDeceitfulness - p.playerModel.trust;
+            if (rd.Next(0, Convert.ToInt32(upperBound)) <= lowerBound)
             {
                 //I believe them to be deceiving me
                 //bound is how much they are deceiving me by
