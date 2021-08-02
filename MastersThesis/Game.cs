@@ -12,14 +12,15 @@ namespace MastersThesis
         private static Random rd = new Random();
         //Game details
         public static int gameLength = 0;
-        public static int numberOfPlayers = 50;
+        public static int numberOfPlayers = 40;
+
+        public static int consecNoChanges = 0;
         static void Main(string[] args)
         {
-            for (int j = 0; j < 100; j++) //Loop for running a new game
+            for (int j = 0; j < 10; j++) //Loop for running a new game
             {
                 //Clear variables for new game start
                 gameLength = 0;
-                allDeadPlayers.AddRange(deadPlayers);
                 deadPlayers.Clear();
                 players.Clear();
                 //Initialising players
@@ -33,6 +34,7 @@ namespace MastersThesis
                     
                 }
                 GameLoop();
+                allDeadPlayers.AddRange(deadPlayers);
             }
             //Outputting results of ALL games that have happened.
             Console.WriteLine("ALL GAMES RESULTS");
@@ -43,11 +45,21 @@ namespace MastersThesis
         {
             while (players.Count > 1) //Whilst players are still in the game
             {
+               
                 gameLength++;
                 //GAMEPLAY PHASE
                 GameplayPhase();
+                int deadPlayerCount = deadPlayers.Count;
                 //Removing perceivedModels that are out
                 PlayerListFunctions.RemoveDeadPlayers(players);
+                if (deadPlayers.Count == deadPlayerCount) //If no players have been eliminated this round.
+                {
+                    consecNoChanges++;
+                }
+                else
+                {
+                    consecNoChanges = 0;
+                }
                 //DELIBERATION PHASE
                 if (players.Count > 1)
                 {
@@ -86,7 +98,7 @@ namespace MastersThesis
                 {
                     Random rd = new Random();
                     int score = players.Count;
-                    bool intentionToDeceive = p.GetIntention(players.Count);
+                    bool intentionToDeceive = p.GetIntention(consecNoChanges, players.Count);
                     //Get the target ID with the highest perceived threat
                     int targetID;
                     if (intentionToDeceive)

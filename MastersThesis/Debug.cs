@@ -15,16 +15,17 @@ namespace MastersThesis
                 Console.WriteLine("Personal Model");
                 Console.WriteLine("Trust\tDeceit\tDeceitAbil");
                 Console.WriteLine(NF(p.playerModel.trust) + "\t" + NF(p.playerModel.deceitfulness) + "\t" + NF(p.playerModel.deceitAbility));
-                Console.WriteLine("PPMS");
+                /*Console.WriteLine("PPMS");
                 foreach(PerceivedPlayerModel ppm in p.perceivedPlayerModels)
                 {
                     Console.WriteLine("PPM ID: " + ppm.playerID);
                     Console.WriteLine("Trust\tDeceit\tDeceitAbil");
                     Console.WriteLine(NF(ppm.perceivedTrustfullness) + "\t" + NF(ppm.perceivedDeceitfulness) + "\t" + NF(ppm.perceivedDeceitAbility));
                 }
+                */
             }
             Console.WriteLine("###");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
 

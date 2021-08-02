@@ -41,7 +41,7 @@ namespace MastersThesis
         //Fetch a perceived player model of a particular player P
         public PerceivedPlayerModel GetPerceivedPlayerModel(Player p)
         {
-            foreach(PerceivedPlayerModel ppm in perceivedPlayerModels)
+            /*foreach(PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
                 if (p.playerID == ppm.playerID)
                 {
@@ -49,14 +49,16 @@ namespace MastersThesis
                 }
             }
             return null;
+            */
+            return perceivedPlayerModels.Find(o => o.playerID == p.playerID);
         }
 
         //Get the intention
         //Intention is whether a player is going to deceive or act truthfully.
-        public bool GetIntention(int remainingPlayers)
+        public bool GetIntention(int consecNoChanges, int remainingPlayers)
         {
             if (remainingPlayers == 2) { return true; } //Always deceive if two players remain.
-            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness)); 
+            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness + consecNoChanges)); 
             if (intention <= playerModel.trust)
             {
                 return false; //Do NOT deceive
@@ -152,7 +154,14 @@ namespace MastersThesis
                 int guessed_card = Convert.ToInt32(statement);
                 while (guessed_card == Convert.ToInt32(statement)) //If deceived, dont guess card made in statement.
                 {
-                    guessed_card = rd.Next(-1 * bound, bound);
+                    int skew = rd.Next(-1 * bound, bound);
+                    guessed_card = guessed_card + skew;
+                    //Check to break infinite loop]
+                    if ((bound == 1)&&(guessed_card == 1))
+                    {
+                        return 2;
+                    }
+                    if (bound == 0) { return guessed_card; }
                     if (guessed_card > 9) { guessed_card = 9; }
                     else if (guessed_card < 1) { guessed_card = 1; }
                 }
@@ -164,7 +173,7 @@ namespace MastersThesis
 
         public Argument GetArgument(Player p, List<Player> players)
         {
-            bool intention = p.GetIntention(players.Count);
+            bool intention = p.GetIntention(Game.consecNoChanges, players.Count);
             Player target = PlayerListFunctions.GetPlayerByID(p.GetHighestThreat(players), players);
             //Get statement
             string[] good_statements = { "NotDeceitful", "NotAggressive", "Trustful"};

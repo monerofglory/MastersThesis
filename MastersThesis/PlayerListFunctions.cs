@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MastersThesis
 {
@@ -83,15 +84,15 @@ namespace MastersThesis
                 }
                 if (p != a.receiver)
                 {
-                    p.GetPerceivedPlayerModel(a.receiver).perceivedDeceitfulness += deceitChange;
-                    p.GetPerceivedPlayerModel(a.receiver).perceivedDeceitAbility += deceitAbilityChange;
-                    p.GetPerceivedPlayerModel(a.receiver).perceivedTrustfullness += trustChange;
+                    p.GetPerceivedPlayerModel(a.receiver).AddDeceitfulness(p.playerModel, deceitChange);
+                    p.GetPerceivedPlayerModel(a.receiver).AddDeceitAbility(p.playerModel, deceitAbilityChange);
+                    p.GetPerceivedPlayerModel(a.receiver).AddTrust(p.playerModel, trustChange);
                 }
             }
         }
         public static Player GetPlayerByID(int id, List<Player> players)
         {
-            foreach(Player p in players)
+            /*foreach(Player p in players)
             {
                 if (p.playerID == id)
                 {
@@ -99,6 +100,8 @@ namespace MastersThesis
                 }
             }
             return null;
+            */
+            return players.Find(o => o.playerID == id);
         }
 
         public static void RemoveDeadPlayers(List<Player> players)
