@@ -124,7 +124,14 @@ namespace MastersThesis
                     {
                         p.health++;
                         target.health++;
-                        target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, 4);
+                        target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, -4);
+                        foreach(Player p3 in players)
+                        {
+                            if (p3.playerID != p.playerID)
+                            {
+                                p3.GetPerceivedPlayerModel(p).AddDeceitfulness(p3.playerModel, -2);
+                            }
+                        }
                     }
                     else //If incorrect
                     {
@@ -140,12 +147,12 @@ namespace MastersThesis
                         //If the opponent DID NOT lie
                         if (guess == Convert.ToInt32(statement))
                         {
-                            target.GetPerceivedPlayerModel(p).AddTrust(target.playerModel, 4);
+                            target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, -4);
                             foreach (Player p2 in players)
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddTrust(p2.playerModel, 2);
+                                    p2.GetPerceivedPlayerModel(p).AddDeceitfulness(p2.playerModel, -2);
                                 }
                             }
 
@@ -160,6 +167,27 @@ namespace MastersThesis
                                 {
                                     p2.GetPerceivedPlayerModel(p).AddDeceitfulness(p2.playerModel, 2);
                                 }
+                            }
+                        }
+                    }
+                    //If the player believed the statement
+                    if (guess == Convert.ToInt32(statement))
+                    {
+                        foreach(Player p4 in players)
+                        {
+                            if (p4.playerID != p.playerID)
+                            {
+                                p4.GetPerceivedPlayerModel(p).AddTrust(p4.playerModel, 2);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (Player p4 in players)
+                        {
+                            if (p4.playerID != p.playerID)
+                            {
+                                p4.GetPerceivedPlayerModel(p).AddTrust(p4.playerModel, -2);
                             }
                         }
                     }

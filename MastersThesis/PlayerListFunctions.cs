@@ -92,15 +92,6 @@ namespace MastersThesis
         }
         public static Player GetPlayerByID(int id, List<Player> players)
         {
-            /*foreach(Player p in players)
-            {
-                if (p.playerID == id)
-                {
-                    return p;
-                }
-            }
-            return null;
-            */
             return players.Find(o => o.playerID == id);
         }
 
