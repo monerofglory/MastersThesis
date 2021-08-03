@@ -84,9 +84,9 @@ namespace MastersThesis
                 }
                 if (p != a.receiver)
                 {
-                    p.GetPerceivedPlayerModel(a.receiver).AddDeceitfulness(p.playerModel, deceitChange);
-                    p.GetPerceivedPlayerModel(a.receiver).AddDeceitAbility(p.playerModel, deceitAbilityChange);
-                    p.GetPerceivedPlayerModel(a.receiver).AddTrust(p.playerModel, trustChange);
+                    if (trustChange != 0) { p.GetPerceivedPlayerModel(a.receiver).AddTrust(p.playerModel, trustChange); }
+                    else if (deceitChange != 0) { p.GetPerceivedPlayerModel(a.receiver).AddDeceitfulness(p.playerModel, deceitChange); }
+                    else { p.GetPerceivedPlayerModel(a.receiver).AddDeceitAbility(p.playerModel, deceitAbilityChange); }
                 }
             }
         }
