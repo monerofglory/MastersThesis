@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MastersThesis
 {
@@ -29,7 +28,7 @@ namespace MastersThesis
         //Add perceived model of each player
         public void AddPerceivedPlayerModels(List<Player> players)
         {
-            foreach(Player p in players)
+            foreach (Player p in players)
             {
                 if (p != this) //Make sure a player doesnt add themselves
                 {
@@ -37,7 +36,7 @@ namespace MastersThesis
                 }
             }
         }
-        
+
         //Fetch a perceived player model of a particular player P
         public PerceivedPlayerModel GetPerceivedPlayerModel(Player p)
         {
@@ -49,7 +48,7 @@ namespace MastersThesis
         public bool GetIntention(int consecNoChanges, int remainingPlayers)
         {
             if (remainingPlayers == 2) { return true; } //Always deceive if two players remain.
-            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness + consecNoChanges)); 
+            int intention = rd.Next(0, Convert.ToInt32(playerModel.trust + playerModel.deceitfulness + consecNoChanges));
             if (intention <= playerModel.trust)
             {
                 return false; //Do NOT deceive
@@ -71,7 +70,7 @@ namespace MastersThesis
                 if (PlayerListFunctions.GetPlayerByID(ppm.playerID, players).health >= 1) //Make sure the player is still alive.
                 {
                     double trust = ppm.GetTrust(players); //Get the trust calculation
-                    if (trust> highest)
+                    if (trust > highest)
                     {
                         highest = trust;
                         highest_player = ppm.playerID;
@@ -148,7 +147,7 @@ namespace MastersThesis
                     int skew = rd.Next(-1 * bound, bound);
                     guessed_card = guessed_card + skew;
                     //Check to break infinite loop]
-                    if ((bound == 1)&&(guessed_card == 1))
+                    if ((bound == 1) && (guessed_card == 1))
                     {
                         return 2;
                     }
@@ -167,14 +166,15 @@ namespace MastersThesis
             bool intention = p.GetIntention(Game.consecNoChanges, players.Count);
             Player target = PlayerListFunctions.GetPlayerByID(p.GetHighestThreat(players), players);
             //Get statement
-            string[] good_statements = { "NotDeceitful", "NotAggressive", "Trustful"};
+            string[] good_statements = { "NotDeceitful", "NotAggressive", "Trustful" };
             string[] bad_statements = { "Deceitful", "Aggressive", "NotTrustful" };
             Argument a;
             if (intention)
             {
                 a = new Argument(good_statements[rd.Next(good_statements.Length)], p, target);
             }
-            else {
+            else
+            {
                 a = new Argument(bad_statements[rd.Next(bad_statements.Length)], p, target);
             }
             return a;
@@ -184,17 +184,17 @@ namespace MastersThesis
         //Perceived player models tend towards 50 (the middle) over time.
         public void Decay()
         {
-            foreach(PerceivedPlayerModel ppm in perceivedPlayerModels)
+            foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
                 //Decay for perceivedTrustfulness
-                if (ppm.perceivedTrustfullness > 50) { ppm.perceivedTrustfullness-= 0.1; }
-                else if (ppm.perceivedTrustfullness < 50) { ppm.perceivedTrustfullness+= 0.1; }
+                if (ppm.perceivedTrustfullness > 50) { ppm.perceivedTrustfullness -= 0.1; }
+                else if (ppm.perceivedTrustfullness < 50) { ppm.perceivedTrustfullness += 0.1; }
                 //Decay for perceivedDeceit
-                if (ppm.perceivedDeceitfulness > 50) { ppm.perceivedDeceitfulness-= 0.1; }
-                else if (ppm.perceivedDeceitfulness < 50) { ppm.perceivedDeceitfulness+=0.1; }
+                if (ppm.perceivedDeceitfulness > 50) { ppm.perceivedDeceitfulness -= 0.1; }
+                else if (ppm.perceivedDeceitfulness < 50) { ppm.perceivedDeceitfulness += 0.1; }
                 //Decay for perceivedDeceitAbility
-                if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility-= 0.1 ; }
-                else if (ppm.perceivedDeceitAbility < 50) { ppm.perceivedDeceitAbility+=0.1; }
+                if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility -= 0.1; }
+                else if (ppm.perceivedDeceitAbility < 50) { ppm.perceivedDeceitAbility += 0.1; }
             }
         }
     }

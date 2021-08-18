@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MastersThesis
 {
@@ -23,7 +22,7 @@ namespace MastersThesis
     {
         public static void DisplayResults2(List<Player> players)
         {
-            
+
             //Creating the dictionaries.
             Dictionary<string, int> scoreDict = new Dictionary<string, int>();
             Dictionary<string, int> averageDict = new Dictionary<string, int>();
@@ -73,9 +72,9 @@ namespace MastersThesis
                     resultsList.Add(new ResultRecord(t));
                 }
             }
-            foreach(ResultRecord rr in resultsList)
+            foreach (ResultRecord rr in resultsList)
             {
-                foreach(Player p in players)
+                foreach (Player p in players)
                 {
                     if (p.traits.Contains(rr.trait))
                     {
@@ -86,7 +85,7 @@ namespace MastersThesis
                 }
             }
             List<ResultRecord> rrL = resultsList.OrderBy(o => o.average).ToList();
-            foreach(ResultRecord rr in rrL)
+            foreach (ResultRecord rr in rrL)
             {
                 Console.WriteLine(rr.trait + " with average of: " + rr.average.ToString("F") + " (" + rr.score + "/" + rr.amount + ")");
             }

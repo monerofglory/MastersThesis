@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MastersThesis
 {
@@ -8,7 +7,7 @@ namespace MastersThesis
     {
         public static void Log(List<Player> players)
         {
-            foreach(Player p in players)
+            foreach (Player p in players)
             {
                 Console.WriteLine("---");
                 Console.WriteLine("ID: " + p.playerID + ", Health: " + p.health);

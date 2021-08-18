@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MastersThesis
 {
-    class PlayerListFunctions {
+    class PlayerListFunctions
+    {
 
         public static List<List<string>> traitsList = new List<List<string>>();
         static List<string> trust_traits = new List<string>() { "Trusting", "Untrusting", "Suspicious", "Unsuspicious" };
@@ -61,7 +61,7 @@ namespace MastersThesis
             double deceitAbilityChange = 0;
             foreach (Player p in players)
             {
-                switch(a.statement)
+                switch (a.statement)
                 {
                     case "Deceitful":
                         deceitChange = 1;
@@ -98,9 +98,9 @@ namespace MastersThesis
         public static void RemoveDeadPlayers(List<Player> players)
         {
             RemovePerceivedModels(players);
-            foreach(Player p in players)
+            foreach (Player p in players)
             {
-                if (p.health <= 0 )
+                if (p.health <= 0)
                 {
                     Game.deadPlayers.Add(p);
                 }
@@ -110,11 +110,11 @@ namespace MastersThesis
         }
         public static void RemovePerceivedModels(List<Player> players)
         {
-            foreach(Player p in players)
+            foreach (Player p in players)
             {
                 if (p.health < 1)
                 {
-                    foreach(Player p2 in players)
+                    foreach (Player p2 in players)
                     {
                         if (p2 != p)
                         {

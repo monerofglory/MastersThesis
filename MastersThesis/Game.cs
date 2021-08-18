@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 
 namespace MastersThesis
 {
     class Game
     {
+        static Stopwatch watch = new System.Diagnostics.Stopwatch();
+
         public static List<Player> players = new List<Player>();
         public static List<Player> deadPlayers = new List<Player>();
         public static List<Player> allDeadPlayers = new List<Player>();
@@ -17,6 +19,7 @@ namespace MastersThesis
         public static int consecNoChanges = 0;
         static void Main(string[] args)
         {
+            watch.Start();
             for (int j = 0; j < 10; j++) //Loop for running a new game
             {
                 //Clear variables for new game start
@@ -31,7 +34,7 @@ namespace MastersThesis
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
                     players[i].AddPerceivedPlayerModels(players);
-                    
+
                 }
                 GameLoop();
                 allDeadPlayers.AddRange(deadPlayers);
@@ -39,13 +42,15 @@ namespace MastersThesis
             //Outputting results of ALL games that have happened.
             Console.WriteLine("ALL GAMES RESULTS");
             Results.DisplayResults(allDeadPlayers);
+            watch.Stop();
+            Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
         }
 
         static void GameLoop()
         {
             while (players.Count > 1) //Whilst players are still in the game
             {
-               
+
                 gameLength++;
                 //GAMEPLAY PHASE
                 GameplayPhase();
@@ -66,7 +71,7 @@ namespace MastersThesis
                     DeliberationPhase();
                 }
                 //Decay each players perceived player models
-                foreach(Player p in players)
+                foreach (Player p in players)
                 {
                     p.Decay();
                 }
@@ -85,7 +90,7 @@ namespace MastersThesis
             {
                 arguments.Add(p.GetArgument(p, players)); //Fetch arguments and add them to list of arguments.
             }
-            foreach(Argument a in arguments) //Loop through all the arguments and resolve them (add to ppms).
+            foreach (Argument a in arguments) //Loop through all the arguments and resolve them (add to ppms).
             {
                 PlayerListFunctions.ResolveArguments(a, players);
             }
@@ -125,7 +130,7 @@ namespace MastersThesis
                         p.health++;
                         target.health++;
                         target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, -4);
-                        foreach(Player p3 in players)
+                        foreach (Player p3 in players)
                         {
                             if (p3.playerID != p.playerID)
                             {
@@ -175,7 +180,7 @@ namespace MastersThesis
                     //If the player believed the statement
                     if (guess == Convert.ToInt32(statement))
                     {
-                        foreach(Player p4 in players)
+                        foreach (Player p4 in players)
                         {
                             if (p4.playerID != p.playerID)
                             {
@@ -203,7 +208,7 @@ namespace MastersThesis
                     startingPlayer++;
                 }
                 playersDone++;
-                
+
             }
         }
     }
