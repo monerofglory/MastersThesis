@@ -43,17 +43,6 @@ namespace MastersThesis
             return new_traits;
         }
 
-        public static List<string> getNewStrategy()
-        {
-            List<string> new_strategies = new List<string>();
-            string[] strategies = { "Tit-For-Tat", "Attack Most Health", "Attack Lowest Health" }; //Predefined strategies
-            for (int i = 0; i < rd.Next(1, 3); i++) //Add a number of strategies from list
-            {
-                new_strategies.Add(strategies[rd.Next(0, strategies.Length)]);
-            }
-            return new_strategies; //Return list
-        }
-
         public static void ResolveArguments(Argument a, List<Player> players)
         {
             double trustChange = 0;

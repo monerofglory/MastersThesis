@@ -10,18 +10,16 @@ namespace MastersThesis
         public PlayerModel playerModel;
         public List<PerceivedPlayerModel> perceivedPlayerModels = new List<PerceivedPlayerModel>();
         public List<String> traits = new List<string>();
-        public List<String> strategies = new List<string>();
         public int score = 0;
 
         private Random rd = new Random();
 
         //Player constructor
-        public Player(int id, List<string> new_traits, List<string> new_strategies)
+        public Player(int id, List<string> new_traits)
         {
             health = 20;
             playerID = id;
             traits.AddRange(new_traits);
-            strategies.AddRange(new_strategies);
             playerModel = new PlayerModel(this);
         }
 

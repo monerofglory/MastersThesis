@@ -29,7 +29,7 @@ namespace MastersThesis
                 //Initialising players
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
-                    players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 4)), PlayerListFunctions.getNewStrategy()));
+                    players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 4))));
                 }
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
