@@ -7,7 +7,7 @@ namespace MastersThesis
     {
 
         public static List<List<string>> traitsList = new List<List<string>>();
-        static List<string> trust_traits = new List<string>() { "Trusting", "Untrusting", "Suspicious", "Unsuspicious" };
+        static List<string> trust_traits = new List<string>() { "Trusting", "Untrusting", "Unsuspicious", "Suspicious" };
         static List<string> deceit_traits = new List<string>() { "Deceitful", "Honest", "Calculating", "Fair" };
         static List<string> deceitAbility_traits = new List<string>() { "Aggressive", "Passive", "Audacious", "Timid" };
         private static Random rd = new Random();

@@ -42,6 +42,35 @@ namespace MastersThesis
                 Console.WriteLine(k.Key + " = " + k.Value);
             }
         }
+
+        public static void DisplayResults_Survivor(List<Player> players)
+        {
+            List<ResultRecord> resultsList = new List<ResultRecord>();
+            foreach (List<string> tL in PlayerListFunctions.traitsList)
+            {
+                foreach (string t in tL)
+                {
+                    resultsList.Add(new ResultRecord(t));
+                }
+            }
+            foreach (ResultRecord rr in resultsList)
+            {
+                foreach (Player p in players)
+                {
+                    if (p.traits.Contains(rr.trait))
+                    {
+                        rr.score += p.roundsSurvived;
+                        rr.amount++;
+                        rr.average = (double)rr.score / (double)rr.amount;
+                    }
+                }
+            }
+            List<ResultRecord> rrL = resultsList.OrderBy(o => o.average).ToList();
+            foreach (ResultRecord rr in rrL)
+            {
+                Console.WriteLine(rr.trait + " with average of: " + rr.average.ToString("F") + " (" + rr.score + "/" + rr.amount + ")");
+            }
+        }
         public static void DisplayResults_FinalPosition(List<Player> players)
         {
             Console.WriteLine("Total Players: " + players.Count);

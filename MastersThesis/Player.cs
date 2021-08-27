@@ -11,6 +11,7 @@ namespace MastersThesis
         public List<PerceivedPlayerModel> perceivedPlayerModels = new List<PerceivedPlayerModel>();
         public List<String> traits = new List<string>();
         public int score = 0;
+        public int roundsSurvived = 0;
 
         private Random rd = new Random();
 
