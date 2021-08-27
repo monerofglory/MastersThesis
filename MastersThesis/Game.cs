@@ -20,7 +20,7 @@ namespace MastersThesis
         static void Main(string[] args)
         {
             watch.Start();
-            for (int j = 0; j < 10; j++) //Loop for running a new game
+            for (int j = 0; j < 30; j++) //Loop for running a new game
             {
                 //Clear variables for new game start
                 gameLength = 0;
@@ -129,12 +129,12 @@ namespace MastersThesis
                     {
                         p.health++;
                         target.health++;
-                        target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, -4);
+                        target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, Options.personalActionImpact * -1);
                         foreach (Player p3 in players)
                         {
                             if (p3.playerID != p.playerID)
                             {
-                                p3.GetPerceivedPlayerModel(p).AddDeceitfulness(p3.playerModel, -2);
+                                p3.GetPerceivedPlayerModel(p).AddDeceitfulness(p3.playerModel, Options.personalActionImpact * -1);
                             }
                         }
                     }
@@ -153,12 +153,12 @@ namespace MastersThesis
                         if (guess == Convert.ToInt32(statement))
                         {
                             target.GetPerceivedPlayerModel(p).goodTimes++;
-                            target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, -4);
+                            target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, Options.personalActionImpact * -1);
                             foreach (Player p2 in players)
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddDeceitfulness(p2.playerModel, -2);
+                                    p2.GetPerceivedPlayerModel(p).AddDeceitfulness(p2.playerModel, Options.impersonalActionImpact * -1);
                                 }
                             }
 
@@ -166,13 +166,14 @@ namespace MastersThesis
                         else //If opponent DID lie
                         {
                             target.GetPerceivedPlayerModel(p).badTimes++;
-                            target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, 4);
+                            target.GetPerceivedPlayerModel(p).AddDeceitfulness(target.playerModel, Options.personalActionImpact);
                             target.GetPerceivedPlayerModel(p).AddDeceitAbility(target.playerModel, diff);
                             foreach (Player p2 in players)
                             {
                                 if (p2.playerID != p.playerID)
                                 {
-                                    p2.GetPerceivedPlayerModel(p).AddDeceitfulness(p2.playerModel, 2);
+                                    p2.GetPerceivedPlayerModel(p).AddDeceitfulness(p2.playerModel, Options.impersonalActionImpact);
+                                    p2.GetPerceivedPlayerModel(p).AddDeceitAbility(p2.playerModel, diff / 2);
                                 }
                             }
                         }
@@ -184,7 +185,7 @@ namespace MastersThesis
                         {
                             if (p4.playerID != p.playerID)
                             {
-                                p4.GetPerceivedPlayerModel(p).AddTrust(p4.playerModel, 2);
+                                p4.GetPerceivedPlayerModel(p).AddTrust(p4.playerModel, Options.impersonalActionImpact);
                             }
                         }
                     }
@@ -194,7 +195,7 @@ namespace MastersThesis
                         {
                             if (p4.playerID != p.playerID)
                             {
-                                p4.GetPerceivedPlayerModel(p).AddTrust(p4.playerModel, -2);
+                                p4.GetPerceivedPlayerModel(p).AddTrust(p4.playerModel, Options.impersonalActionImpact * -1);
                             }
                         }
                     }

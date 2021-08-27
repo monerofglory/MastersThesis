@@ -5,10 +5,10 @@ namespace MastersThesis
     class PlayerModel
     {
         //PlayerModel Modifier Values
-        private int largeMod = 30;
-        private int smallmod = 15;
-        private int negLargeMod = -30;
-        private int negSmallMod = -15;
+        private int largeMod = Options.traitLargeModifier;
+        private int smallmod = Options.traitSmallModifier;
+        private int negLargeMod = Options.traitLargeModifier * -1;
+        private int negSmallMod = Options.traitSmallModifier * -1;
 
         //Baseline variables are 50
         public double deceitfulness = 50;

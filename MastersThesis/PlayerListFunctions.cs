@@ -53,22 +53,22 @@ namespace MastersThesis
                 switch (a.statement)
                 {
                     case "Deceitful":
-                        deceitChange = 1;
+                        deceitChange = Options.argumentWeight;
                         break;
                     case "NotDeceitful":
-                        deceitChange = -1;
+                        deceitChange = Options.argumentWeight * -1;
                         break;
                     case "Aggressive":
-                        deceitAbilityChange = 1;
+                        deceitAbilityChange = Options.argumentWeight;
                         break;
                     case "NotAggressive":
-                        deceitAbilityChange = -1;
+                        deceitAbilityChange = Options.argumentWeight * -1;
                         break;
                     case "Trustful":
-                        trustChange = 1;
+                        trustChange = Options.argumentWeight;
                         break;
                     case "NotTrustful":
-                        trustChange = -1;
+                        trustChange = Options.argumentWeight * -1;
                         break;
                 }
                 if (p != a.receiver)

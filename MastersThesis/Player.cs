@@ -185,14 +185,14 @@ namespace MastersThesis
             foreach (PerceivedPlayerModel ppm in perceivedPlayerModels)
             {
                 //Decay for perceivedTrustfulness
-                if (ppm.perceivedTrustfullness > 50) { ppm.perceivedTrustfullness -= 0.1; }
-                else if (ppm.perceivedTrustfullness < 50) { ppm.perceivedTrustfullness += 0.1; }
+                if (ppm.perceivedTrustfullness > 50) { ppm.perceivedTrustfullness -= Options.decayAmount; }
+                else if (ppm.perceivedTrustfullness < 50) { ppm.perceivedTrustfullness += Options.decayAmount; }
                 //Decay for perceivedDeceit
-                if (ppm.perceivedDeceitfulness > 50) { ppm.perceivedDeceitfulness -= 0.1; }
-                else if (ppm.perceivedDeceitfulness < 50) { ppm.perceivedDeceitfulness += 0.1; }
+                if (ppm.perceivedDeceitfulness > 50) { ppm.perceivedDeceitfulness -= Options.decayAmount; }
+                else if (ppm.perceivedDeceitfulness < 50) { ppm.perceivedDeceitfulness += Options.decayAmount; }
                 //Decay for perceivedDeceitAbility
-                if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility -= 0.1; }
-                else if (ppm.perceivedDeceitAbility < 50) { ppm.perceivedDeceitAbility += 0.1; }
+                if (ppm.perceivedDeceitAbility > 50) { ppm.perceivedDeceitAbility -= Options.decayAmount; }
+                else if (ppm.perceivedDeceitAbility < 50) { ppm.perceivedDeceitAbility += Options.decayAmount; }
             }
         }
     }
