@@ -9,6 +9,7 @@ namespace MastersThesis
         static Stopwatch watch = new System.Diagnostics.Stopwatch();
 
         public static List<Player> players = new List<Player>();
+        public static List<String> winningTraits = new List<String>();
         public static List<Player> deadPlayers = new List<Player>();
         public static List<Player> allDeadPlayers = new List<Player>();
         private static Random rd = new Random();
@@ -20,7 +21,7 @@ namespace MastersThesis
         static void Main(string[] args)
         {
             watch.Start();
-            for (int j = 0; j < 30; j++) //Loop for running a new game
+            for (int j = 0; j < 100; j++) //Loop for running a new game
             {
                 //Clear variables for new game start
                 gameLength = 0;
@@ -37,11 +38,13 @@ namespace MastersThesis
 
                 }
                 GameLoop();
+                winningTraits.AddRange(players[0].traits);
                 allDeadPlayers.AddRange(deadPlayers);
             }
             //Outputting results of ALL games that have happened.
             Console.WriteLine("ALL GAMES RESULTS");
-            Results.DisplayResults(allDeadPlayers);
+            //Results.DisplayResults_FinalPosition(allDeadPlayers);
+            Results.DisplayResults_WinnerTakesAll(winningTraits);
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
         }

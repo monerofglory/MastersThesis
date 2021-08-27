@@ -11,6 +11,7 @@ namespace MastersThesis
         public int amount;
         public double average;
 
+        private List<ResultRecord> resultsList_WinnerTakesAll = new List<ResultRecord>();
         public ResultRecord(string t)
         {
             trait = t;
@@ -20,48 +21,28 @@ namespace MastersThesis
     }
     class Results
     {
-        public static void DisplayResults2(List<Player> players)
+        public static void DisplayResults_WinnerTakesAll(List<String> winningTraits)
         {
-
-            //Creating the dictionaries.
-            Dictionary<string, int> scoreDict = new Dictionary<string, int>();
-            Dictionary<string, int> averageDict = new Dictionary<string, int>();
-            //Initialising the dictionaries.
+            Dictionary<string, double> results = new Dictionary<string, double>();
+            Dictionary<string, double> adjustedResults = new Dictionary<string, double>();
             foreach (List<string> tL in PlayerListFunctions.traitsList)
             {
                 foreach (string t in tL)
                 {
-                    scoreDict[t] = 0;
-                    averageDict[t] = 0;
+                    results[t] = 0;
                 }
             }
-            //Looping through the players
-            foreach (List<string> tL in PlayerListFunctions.traitsList)
+            foreach(String trait in winningTraits)
             {
-                foreach (string t in tL)
-                {
-                    foreach (Player p in players)
-                    {
-                        if (p.traits.Contains(t))
-                        {
-                            scoreDict[t] += p.score;
-                            averageDict[t]++;
-                        }
-                    }
-                }
+                results[trait]++;
             }
-            foreach (List<string> tL in PlayerListFunctions.traitsList)
+            var sortedResults = results.OrderByDescending(o => o.Value);
+            foreach(KeyValuePair<string, double> k in sortedResults)
             {
-                foreach (string t in tL)
-                {
-                    if (averageDict[t] != 0)
-                    {
-                        Console.WriteLine(t + " has an average score of " + (scoreDict[t] / averageDict[t]) + " (" + scoreDict[t].ToString() + "/" + averageDict[t].ToString() + ")");
-                    }
-                }
+                Console.WriteLine(k.Key + " = " + k.Value);
             }
         }
-        public static void DisplayResults(List<Player> players)
+        public static void DisplayResults_FinalPosition(List<Player> players)
         {
             Console.WriteLine("Total Players: " + players.Count);
             List<ResultRecord> resultsList = new List<ResultRecord>();
