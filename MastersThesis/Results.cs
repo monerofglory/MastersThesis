@@ -65,7 +65,7 @@ namespace MastersThesis
                     }
                 }
             }
-            List<ResultRecord> rrL = resultsList.OrderBy(o => o.average).ToList();
+            List<ResultRecord> rrL = resultsList.OrderByDescending(o => o.average).ToList();
             foreach (ResultRecord rr in rrL)
             {
                 Console.WriteLine(rr.trait + " with average of: " + rr.average.ToString("F") + " (" + rr.score + "/" + rr.amount + ")");

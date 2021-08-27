@@ -30,7 +30,7 @@ namespace MastersThesis
                 //Initialising players
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
-                    players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 4))));
+                    players.Add(new Player(i, PlayerListFunctions.getNewTraits(rd.Next(1, 1))));
                 }
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
