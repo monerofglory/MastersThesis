@@ -15,7 +15,7 @@ namespace MastersThesis
         private static Random rd = new Random();
         //Game details
         public static int gameLength = 0;
-        public static int numberOfPlayers = 50;
+        public static int numberOfPlayers = Options.numberOfPlayers;
 
         public static int consecNoChanges = 0;
         static void Main(string[] args)
@@ -43,9 +43,9 @@ namespace MastersThesis
             }
             //Outputting results of ALL games that have happened.
             Console.WriteLine("ALL GAMES RESULTS");
-            //Results.DisplayResults_FinalPosition(allDeadPlayers);
+            Results.DisplayResults_FinalPosition(allDeadPlayers);
             //Results.DisplayResults_WinnerTakesAll(winningTraits);
-            Results.DisplayResults_Survivor(allDeadPlayers);
+            //Results.DisplayResults_Survivor(allDeadPlayers);
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
         }
