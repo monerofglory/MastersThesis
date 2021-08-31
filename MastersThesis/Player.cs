@@ -160,6 +160,7 @@ namespace MastersThesis
             return Convert.ToInt32(statement);
         }
 
+        //Get an argument from a particular player
         public Argument GetArgument(Player p, List<Player> players)
         {
             bool intention = p.GetIntention(Game.consecNoChanges, players.Count);
