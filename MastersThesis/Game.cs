@@ -83,10 +83,8 @@ namespace MastersThesis
                     p.roundsSurvived++;
                 }
             }
-            //Outputting results of the game.
-            deadPlayers.Add(players[0]);
-            //Results.DisplayResults(deadPlayers);
-            //Console.WriteLine("Length of Game: " + gameLength + " rounds");
+            players[0].score = 1;
+            deadPlayers.Add(players[0]); //Adding the winning player to the dead players.
         }
 
         //Deliberation phase where arguments are created and resolved.
