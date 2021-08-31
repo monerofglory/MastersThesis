@@ -44,7 +44,9 @@ namespace MastersThesis
             //Outputting results of ALL games that have happened.
             Console.WriteLine("ALL GAMES RESULTS");
             Results.DisplayResults_FinalPosition(allDeadPlayers);
+            Console.WriteLine();
             Results.DisplayResults_WinnerTakesAll(winningTraits);
+            Console.WriteLine();
             Results.DisplayResults_Survivor(allDeadPlayers);
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
